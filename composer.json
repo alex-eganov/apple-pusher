@@ -1,0 +1,17 @@
+{
+    "name": "bibi4k0/apple-pusher",
+    "type": "library",
+    "license": "MIT",
+    "description": "",
+    "authors": [
+        {
+            "name": "Alex Eganov",
+            "email": "alex.eganov@gmail.com"
+        }
+    ],
+    "require": {
+      "ext-json": "*",
+      "ext-curl": "*",
+        "ramsey/uuid": "^4.1"
+    }
+}
