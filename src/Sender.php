@@ -3,6 +3,8 @@
 namespace ApplePusher;
 
 use ApplePusher\Auth\AuthInterface;
+use ApplePusher\Exceptions\BasePusherException;
+use ApplePusher\Exceptions\CurlException;
 
 /**
  * Class Sender
@@ -51,7 +53,7 @@ class Sender
     /**
      * @param Push $push
      * @return bool|string
-     * @throws CurlError
+     * @throws BasePusherException
      */
     final public function send(Push $push)
     {
@@ -67,7 +69,7 @@ class Sender
         if ($responseBody === false) {
             $errNo = curl_errno($ch);
             $errStr = curl_error($ch);
-            throw new CurlError($errStr, $errNo);
+            throw new CurlException($errStr, $errNo);
         }
         $responseCode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
 
