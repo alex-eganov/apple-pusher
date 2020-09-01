@@ -52,10 +52,11 @@ class Sender
 
     /**
      * @param Push $push
-     * @return bool|string
+     * @return Response
+     *
      * @throws BasePusherException
      */
-    final public function send(Push $push)
+    final public function send(Push $push): Response
     {
         $ch = curl_init($this->getUrl($push->getDevice()));
 
@@ -74,6 +75,6 @@ class Sender
         }
         $responseCode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
 
-        return $responseBody;
+        return new Response((int)$responseCode, $responseBody, $responseBody);
     }
 }
