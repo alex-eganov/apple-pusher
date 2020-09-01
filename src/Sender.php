@@ -63,6 +63,7 @@ class Sender
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2,
             CURLOPT_HTTPHEADER => $this->prepareHeaders($push),
             CURLOPT_POSTFIELDS => json_encode($push),
+            CURLOPT_RETURNTRANSFER => 1,
         ], $this->auth->getCurlOptions()));
 
         $responseBody = curl_exec($ch);
