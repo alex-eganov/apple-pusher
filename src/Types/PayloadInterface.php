@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplePusher\Types;
+namespace bIbI4k0\ApplePusher\Types;
 
 use JsonSerializable;
 
@@ -8,7 +8,7 @@ use JsonSerializable;
  * Interface PayloadInterface
  * @package ApplePusher\Types
  */
-interface PayloadInterface extends \JsonSerializable
+interface PayloadInterface extends JsonSerializable
 {
     public const TYPE_ALERT = 'alert';
 

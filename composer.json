@@ -13,5 +13,10 @@
       "ext-json": "*",
       "ext-curl": "*",
         "ramsey/uuid": "^4.1"
+    },
+  "autoload": {
+    "psr-4": {
+      "bIbI4k0\\ApplePusher\\": "src/"
     }
+  }
 }

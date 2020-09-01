@@ -1,8 +1,8 @@
 <?php
 
-namespace ApplePusher;
+namespace bIbI4k0\ApplePusher;
 
-use ApplePusher\Types\PayloadInterface;
+use bIbI4k0\ApplePusher\Types\PayloadInterface;
 use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 

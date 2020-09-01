@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplePusher\Auth;
+namespace bIbI4k0\ApplePusher\Auth;
 
 /**
  * Class TokenAuth
@@ -10,9 +10,9 @@ class TokenAuth implements AuthInterface
 {
     private $token;
 
-    public function __construct()
+    public function __construct(string $apnsKey)
     {
-        $this->token = '';
+        $this->token = new Token;
     }
 
     public function getCurlOptions(): array

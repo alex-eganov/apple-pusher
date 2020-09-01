@@ -1,10 +1,10 @@
 <?php
 
-namespace ApplePusher;
+namespace bIbI4k0\ApplePusher;
 
-use ApplePusher\Auth\AuthInterface;
-use ApplePusher\Exceptions\BasePusherException;
-use ApplePusher\Exceptions\CurlException;
+use bIbI4k0\ApplePusher\Auth\AuthInterface;
+use bIbI4k0\ApplePusher\Exceptions\BasePusherException;
+use bIbI4k0\ApplePusher\Exceptions\CurlException;
 
 /**
  * Class Sender

@@ -1,7 +1,6 @@
 <?php
 
-namespace ApplePusher;
-
+namespace bIbI4k0\ApplePusher;
 
 /**
  * Class Response

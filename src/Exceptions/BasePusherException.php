@@ -1,7 +1,6 @@
 <?php
 
-
-namespace ApplePusher\Exceptions;
+namespace bIbI4k0\ApplePusher\Exceptions;
 
 /**
  * Class BasePusherException

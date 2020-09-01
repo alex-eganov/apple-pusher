@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplePusher\Auth;
+namespace bIbI4k0\ApplePusher\Auth;
 
 /**
  * Interface AuthInterface

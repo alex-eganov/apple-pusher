@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplePusher\Types;
+namespace bIbI4k0\ApplePusher\Types;
 
 /**
  * Class Alert
