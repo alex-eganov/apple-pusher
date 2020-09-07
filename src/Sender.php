@@ -3,7 +3,6 @@
 namespace bIbI4k0\ApplePusher;
 
 use bIbI4k0\ApplePusher\Auth\AuthInterface;
-use bIbI4k0\ApplePusher\Exceptions\BasePusherException;
 use bIbI4k0\ApplePusher\Exceptions\CurlException;
 
 /**
@@ -56,7 +55,7 @@ class Sender
      * @param Push $push
      * @return Response
      *
-     * @throws BasePusherException
+     * @throws CurlException
      */
     final public function send(Push $push): Response
     {
