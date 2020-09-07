@@ -10,13 +10,14 @@
         }
     ],
     "require": {
-      "ext-json": "*",
-      "ext-curl": "*",
-        "ramsey/uuid": "^4.1"
+        "ext-json": "*",
+        "ext-curl": "*",
+        "ramsey/uuid": "^4.1",
+        "lcobucci/jwt": "^3.3"
     },
-  "autoload": {
-    "psr-4": {
-      "bIbI4k0\\ApplePusher\\": "src/"
+    "autoload": {
+        "psr-4": {
+            "bIbI4k0\\ApplePusher\\": "src/"
+        }
     }
-  }
 }

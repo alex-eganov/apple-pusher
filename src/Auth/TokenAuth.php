@@ -2,25 +2,54 @@
 
 namespace bIbI4k0\ApplePusher\Auth;
 
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Ecdsa\Sha256;
+use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Token;
+
 /**
  * Class TokenAuth
  * @package ApplePusher\Auth
  */
 class TokenAuth implements AuthInterface
 {
-    private $token;
+    /**
+     * @var Token
+     */
+    private Token $token;
 
-    public function __construct(string $apnsKey)
+    /**
+     * @param string $apnsId APNS key
+     * @param string $teamId Apple developers team ID
+     * @param string $keyFile .p8 key file content or file URI to it
+     */
+    public function __construct(string $apnsId, string $teamId, string $keyFile)
     {
-        $this->token = new Token;
+        $key = new Key($keyFile);
+        $time = time();
+        $this->token = (new Builder())
+            ->issuedBy(strtoupper($teamId))
+            ->issuedAt($time)
+            ->withHeader('kid', strtoupper($apnsId))
+            ->getToken(new Sha256(), $key);
     }
 
-    public function getCurlOptions(): array
+
+    /**
+     * @return string[]
+     */
+    public function getRequestHeaders(): array
     {
         return [
-            CURLOPT_HEADER => [
-                'authorization' => 'bearer ' . (string)$this->token,
-            ]
+            'Authorization: Bearer ' . (string)$this->token,
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getCurlOptions(): array
+    {
+        return [];
     }
 }

@@ -32,7 +32,7 @@ class Sender
      */
     protected function getUrl(string $deviceToken): string
     {
-        return sprintf('https://%s:443/3/device/%s', $this->baseUrl, $deviceToken);
+        return sprintf('https://%s/3/device/%s', $this->baseUrl, $deviceToken);
     }
 
     /**
@@ -47,6 +47,8 @@ class Sender
         }
         $headers[] = "apns-id: {$push->getUuid()}";
 
+        $headers = array_merge($headers, $this->auth->getRequestHeaders());
+
         return $headers;
     }
 
@@ -60,12 +62,16 @@ class Sender
     {
         $ch = curl_init($this->getUrl($push->getDevice()));
 
-        curl_setopt_array($ch, array_merge_recursive([
+        $curlOptions = [
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2,
+            CURLOPT_PORT => 443,
             CURLOPT_HTTPHEADER => $this->prepareHeaders($push),
+            CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => json_encode($push),
-            CURLOPT_RETURNTRANSFER => 1,
-        ], $this->auth->getCurlOptions()));
+            CURLOPT_RETURNTRANSFER => true,
+        ];
+        $curlOptions = array_merge($curlOptions, $this->auth->getCurlOptions());
+        curl_setopt_array($ch, $curlOptions);
 
         $responseBody = curl_exec($ch);
         if ($responseBody === false) {
@@ -74,7 +80,8 @@ class Sender
             throw new CurlException($errStr, $errNo);
         }
         $responseCode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        curl_close($ch);
 
-        return new Response((int)$responseCode, $responseBody, $responseBody);
+        return Response::fromJson($responseCode, $responseBody);
     }
 }
