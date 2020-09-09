@@ -16,10 +16,10 @@ class Response implements JsonSerializable
 
     /**
      * @param int $code
-     * @param string $reason
+     * @param string|null $reason
      * @param array|null $body
      */
-    public function __construct(int $code, string $reason, array $body = null)
+    public function __construct(int $code, string $reason = null, array $body = null)
     {
         $this->code = $code;
         $this->reason = $reason;

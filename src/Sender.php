@@ -69,7 +69,7 @@ class Sender
             CURLOPT_POSTFIELDS => json_encode($push),
             CURLOPT_RETURNTRANSFER => true,
         ];
-        $curlOptions = array_merge($curlOptions, $this->auth->getCurlOptions());
+        $curlOptions = array_replace($curlOptions, $this->auth->getCurlOptions());
         curl_setopt_array($ch, $curlOptions);
 
         $responseBody = curl_exec($ch);
