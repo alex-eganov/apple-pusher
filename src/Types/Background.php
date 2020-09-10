@@ -6,26 +6,8 @@ namespace bIbI4k0\ApplePusher\Types;
  * Class Background
  * @package bIbI4k0\ApplePusher\Types
  */
-class Background implements PayloadInterface
+class Background extends AbstractPayload
 {
-    private array $data;
-
-    /**
-     * @param array $data
-     */
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-    }
-
-    /**
-     * @return array
-     */
-    public function getData(): array
-    {
-        return $this->data;
-    }
-
     /**
      * @return string
      */
@@ -37,12 +19,10 @@ class Background implements PayloadInterface
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    protected function getApsData(): array
     {
-        return array_merge($this->getData(), [
-            'apns' => [
-                'content-available' => 1
-            ]
-        ]);
+        return [
+            'content-available' => 1,
+        ];
     }
 }

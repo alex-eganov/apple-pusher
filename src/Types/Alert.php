@@ -6,7 +6,7 @@ namespace bIbI4k0\ApplePusher\Types;
  * Class Alert
  * @package bIbI4k0\ApplePusher\Types
  */
-class Alert implements PayloadInterface
+class Alert extends AbstractPayload
 {
     private string $title;
     private ?string $subTitle;
@@ -57,24 +57,22 @@ class Alert implements PayloadInterface
     }
 
     /**
-     * @return string[]
+     * @return array
      */
-    public function jsonSerialize(): array
+    public function getApsData(): array
     {
-        $data = [
+        $alertData = [
             'title' => $this->getTitle()
         ];
         if ($this->subTitle !== null) {
-            $data['subtitle'] = $this->getSubTitle();
+            $alertData['subtitle'] = $this->getSubTitle();
         }
         if ($this->body !== null) {
-            $data['body'] = $this->getBody();
+            $alertData['body'] = $this->getBody();
         }
 
-        return [
-            'aps' => [
-                'alert' => $data
-            ]
-        ];
+        $this->setApsValue('alert', $alertData);
+
+        return parent::getApsData();
     }
 }
