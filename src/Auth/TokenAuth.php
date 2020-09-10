@@ -8,8 +8,10 @@ use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Token;
 
 /**
+ * Token-based stateless authentication
+ *
  * Class TokenAuth
- * @package ApplePusher\Auth
+ * @package bIbI4k0\ApplePusher\Auth
  */
 class TokenAuth implements AuthInterface
 {

@@ -3,6 +3,8 @@
 namespace bIbI4k0\ApplePusher\Auth;
 
 /**
+ * Authentication on the server via ssl-certificate
+ *
  * Class CertAuth
  * @package bIbI4k0\ApplePusher\Auth
  */

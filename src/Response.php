@@ -6,7 +6,7 @@ use JsonSerializable;
 
 /**
  * Class Response
- * @package ApplePusher
+ * @package bIbI4k0\ApplePusher
  */
 class Response implements JsonSerializable
 {
@@ -16,10 +16,10 @@ class Response implements JsonSerializable
     private ?array $body;
 
     /**
-     * @param int $code
-     * @param string $pushUuid
-     * @param string|null $reason
-     * @param array|null $body
+     * @param int $code status code of the request
+     * @param string $pushUuid push unique id
+     * @param string|null $reason text reason for the failed request
+     * @param array|null $body decoded json body
      */
     public function __construct(int $code, string $pushUuid, string $reason = null, array $body = null)
     {
@@ -42,6 +42,8 @@ class Response implements JsonSerializable
     }
 
     /**
+     * Return unique push id
+     *
      * @return string
      */
     public function getPushUuid(): string
@@ -58,6 +60,8 @@ class Response implements JsonSerializable
     }
 
     /**
+     * Returns text reason of the failed request to apns
+     *
      * @return string|null
      */
     public function getReason(): ?string
@@ -66,6 +70,8 @@ class Response implements JsonSerializable
     }
 
     /**
+     * Returns decoded json body of request, or null
+     *
      * @return array|null
      */
     public function getBody(): ?array
@@ -80,7 +86,7 @@ class Response implements JsonSerializable
     {
         return [
             'ok' => $this->isOk(),
-            'pushId' => $this->getPushUuid(),
+            'pushUuid' => $this->getPushUuid(),
             'reason' => $this->getReason(),
             'body' => $this->getBody(),
         ];

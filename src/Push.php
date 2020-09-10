@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * Class Push
- * @package ApplePusher
+ * @package bIbI4k0\ApplePusher
  */
 class Push implements JsonSerializable
 {
@@ -17,6 +17,10 @@ class Push implements JsonSerializable
     private PayloadInterface $payload;
     private array $options = [];
 
+    /**
+     * @param string $deviceToken
+     * @param PayloadInterface $payload
+     */
     public function __construct(string $deviceToken, PayloadInterface $payload)
     {
         $this->deviceToken = $deviceToken;
@@ -24,6 +28,9 @@ class Push implements JsonSerializable
         $this->generateUUID();
     }
 
+    /**
+     * Generate and set new unique id for this Push
+     */
     private function generateUUID(): void
     {
         $this->uuid = Uuid::uuid4()->toString();
@@ -39,8 +46,10 @@ class Push implements JsonSerializable
     }
 
     /**
+     * Returns new instance with specified device token
+     *
      * @param string $newDeviceToken
-     * @return $this
+     * @return static
      */
     public function withDevice(string $newDeviceToken): self
     {
@@ -52,6 +61,8 @@ class Push implements JsonSerializable
     }
 
     /**
+     * Returns device token
+     *
      * @return string
      */
     public function getDevice(): string
@@ -60,6 +71,8 @@ class Push implements JsonSerializable
     }
 
     /**
+     * Returns unique push id
+     *
      * @return string
      */
     public function getUuid(): string

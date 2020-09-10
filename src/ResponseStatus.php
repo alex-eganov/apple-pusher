@@ -6,9 +6,9 @@ namespace bIbI4k0\ApplePusher;
  * APNS error codes
  *
  * Class ResponseStatus
- * @package ApplePusher
+ * @package bIbI4k0\ApplePusher
  */
-class ResponseStatus
+final class ResponseStatus
 {
     public const STATUS_OK = 200;
 

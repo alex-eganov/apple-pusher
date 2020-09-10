@@ -6,7 +6,7 @@ use JsonSerializable;
 
 /**
  * Interface PayloadInterface
- * @package ApplePusher\Types
+ * @package bIbI4k0\ApplePusher\Types
  */
 interface PayloadInterface extends JsonSerializable
 {

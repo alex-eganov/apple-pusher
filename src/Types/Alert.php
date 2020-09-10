@@ -4,7 +4,7 @@ namespace bIbI4k0\ApplePusher\Types;
 
 /**
  * Class Alert
- * @package ApplePusher
+ * @package bIbI4k0\ApplePusher\Types
  */
 class Alert implements PayloadInterface
 {

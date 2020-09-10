@@ -4,7 +4,7 @@ namespace bIbI4k0\ApplePusher\Auth;
 
 /**
  * Interface AuthInterface
- * @package ApplePusher\Auth
+ * @package bIbI4k0\ApplePusher\Auth
  */
 interface AuthInterface
 {

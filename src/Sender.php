@@ -7,7 +7,7 @@ use bIbI4k0\ApplePusher\Exceptions\CurlException;
 
 /**
  * Class Sender
- * @package ApplePusher
+ * @package bIbI4k0\ApplePusher
  */
 class Sender
 {
@@ -17,6 +17,10 @@ class Sender
     private string $baseUrl;
     private AuthInterface $auth;
 
+    /**
+     * @param AuthInterface $auth
+     * @param bool $isDevMode
+     */
     public function __construct(AuthInterface $auth, bool $isDevMode)
     {
         $this->baseUrl = $isDevMode
@@ -26,6 +30,8 @@ class Sender
     }
 
     /**
+     * Returns apns endpoint for specified device token
+     *
      * @param string $deviceToken
      * @return string
      */
@@ -35,6 +41,8 @@ class Sender
     }
 
     /**
+     * Returns http headers for the request
+     *
      * @param Push $push
      * @return array
      */
@@ -52,10 +60,12 @@ class Sender
     }
 
     /**
-     * @param Push $push
-     * @return Response
+     * Send request with push-data to apns server and returns wrapped response from it
      *
-     * @throws CurlException
+     * @param Push $push
+     * @return Response wrapped response of apns server
+     *
+     * @throws CurlException when curl errors was happened
      */
     final public function send(Push $push): Response
     {
