@@ -29,7 +29,7 @@ class Sender
             ? self::BASE_URL_DEV
             : self::BASE_URL;
         $this->auth = $auth;
-        $this->curlConfig = $config;
+        $this->curlConfig = $config ?: new CurlConfig();
     }
 
     /**
