@@ -16,17 +16,20 @@ class Sender
 
     private string $baseUrl;
     private AuthInterface $auth;
+    private ?CurlConfig $curlConfig;
 
     /**
      * @param AuthInterface $auth
      * @param bool $isDevMode
+     * @param CurlConfig|null $config
      */
-    public function __construct(AuthInterface $auth, bool $isDevMode)
+    public function __construct(AuthInterface $auth, bool $isDevMode, CurlConfig $config = null)
     {
         $this->baseUrl = $isDevMode
             ? self::BASE_URL_DEV
             : self::BASE_URL;
         $this->auth = $auth;
+        $this->curlConfig = $config;
     }
 
     /**
@@ -79,7 +82,7 @@ class Sender
             CURLOPT_POSTFIELDS => json_encode($push),
             CURLOPT_RETURNTRANSFER => true,
         ];
-        $curlOptions = array_replace($curlOptions, $this->auth->getCurlOptions());
+        $curlOptions = array_replace($curlOptions, $this->curlConfig->getOptions(), $this->auth->getCurlOptions());
         curl_setopt_array($ch, $curlOptions);
 
         $responseBody = curl_exec($ch);
