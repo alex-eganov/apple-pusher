@@ -85,7 +85,7 @@ class Push implements JsonSerializable
      */
     public function setExpiration(int $utcTime): void
     {
-        $this->options['expiration'] = (string)$utcTime;
+        $this->addOption('expiration', (string)$utcTime);
     }
 
     /**
@@ -93,7 +93,7 @@ class Push implements JsonSerializable
      */
     public function setPriority(int $level): void
     {
-        $this->options['priority'] = (string)$level;
+        $this->addOption('priority', (string)$level);
     }
 
     /**
@@ -101,7 +101,7 @@ class Push implements JsonSerializable
      */
     public function setTopic(string $topicName): void
     {
-        $this->options['topic'] = (string)$topicName;
+        $this->addOption('topic', $topicName);
     }
 
     /**
@@ -110,7 +110,7 @@ class Push implements JsonSerializable
     public function setPayload(PayloadInterface $payload): void
     {
         $this->payload = $payload;
-        $this->options['type'] = $payload->getType();
+        $this->addOption('type', $payload->getType());
     }
 
     /**
