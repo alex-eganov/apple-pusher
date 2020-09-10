@@ -11,6 +11,7 @@ use JsonSerializable;
 interface PayloadInterface extends JsonSerializable
 {
     public const TYPE_ALERT = 'alert';
+    public const TYPE_BACKGROUND = 'background';
 
     /**
      * @return string
