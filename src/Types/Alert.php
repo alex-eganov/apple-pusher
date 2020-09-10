@@ -71,6 +71,10 @@ class Alert implements PayloadInterface
             $data['body'] = $this->getBody();
         }
 
-        return ['alert' => $data];
+        return [
+            'aps' => [
+                'alert' => $data
+            ]
+        ];
     }
 }

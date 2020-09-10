@@ -121,6 +121,11 @@ class Push implements JsonSerializable
         $this->addOption('type', $payload->getType());
     }
 
+    public function getPayload(): PayloadInterface
+    {
+        return $this->payload;
+    }
+
     /**
      * @return array
      */
@@ -130,12 +135,10 @@ class Push implements JsonSerializable
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
-        return [
-            'aps' => $this->payload,
-        ];
+        return $this->getPayload();
     }
 }
