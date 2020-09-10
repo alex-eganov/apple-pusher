@@ -11,34 +11,42 @@ use JsonSerializable;
 class Response implements JsonSerializable
 {
     private int $code;
-    private string $pushUuid;
+    private Push $push;
     private ?string $reason;
     private ?array $body;
 
     /**
      * @param int $code status code of the request
-     * @param string $pushUuid push unique id
+     * @param Push $push
      * @param string|null $reason text reason for the failed request
      * @param array|null $body decoded json body
      */
-    public function __construct(int $code, string $pushUuid, string $reason = null, array $body = null)
+    public function __construct(int $code, Push $push, string $reason = null, array $body = null)
     {
         $this->code = $code;
-        $this->pushUuid = $pushUuid;
+        $this->push = $push;
         $this->reason = $reason;
         $this->body = $body;
     }
 
     /**
-     * @param int $code
-     * @param string $pushUuid
      * @param string $json
+     * @param int $statusCode
+     * @param Push $push
      * @return static
      */
-    public static function fromJson(int $code, string $pushUuid, string $json): self
+    public static function fromJson(string $json, int $statusCode, Push $push): self
     {
         $json = json_decode($json, true, JSON_THROW_ON_ERROR);
-        return new self($code, $pushUuid, $json['reason'] ?? null, $json);
+        return new self($statusCode, $push, $json['reason'] ?? null, $json);
+    }
+
+    /**
+     * @return Push
+     */
+    public function getPush(): Push
+    {
+        return $this->push;
     }
 
     /**
@@ -46,9 +54,9 @@ class Response implements JsonSerializable
      *
      * @return string
      */
-    public function getPushUuid(): string
+    public function getPushId(): string
     {
-        return $this->pushUuid;
+        return $this->push->getUuid();
     }
 
     /**
@@ -86,7 +94,8 @@ class Response implements JsonSerializable
     {
         return [
             'ok' => $this->isOk(),
-            'pushUuid' => $this->getPushUuid(),
+            'pushId' => $this->getPushId(),
+            'device' => $this->push->getDevice(),
             'reason' => $this->getReason(),
             'body' => $this->getBody(),
         ];

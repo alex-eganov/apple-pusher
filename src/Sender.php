@@ -94,6 +94,6 @@ class Sender
         $responseCode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         curl_close($ch);
 
-        return Response::fromJson($responseCode, $push->getUuid(), $responseBody);
+        return Response::fromJson($responseBody, $responseCode, $push);
     }
 }
