@@ -81,6 +81,8 @@ class Push implements JsonSerializable
     }
 
     /**
+     * APNS doc: The date at which the notification is no longer valid.
+     *
      * @param int $utcTime
      */
     public function setExpiration(int $utcTime): void
@@ -89,6 +91,9 @@ class Push implements JsonSerializable
     }
 
     /**
+     * APNS doc: The priority of the notification. If you omit this header, APNs sets the notification priority to 10.
+     * Specify 10 to send the notification immediately.
+     *
      * @param int $level
      */
     public function setPriority(int $level): void
@@ -97,6 +102,9 @@ class Push implements JsonSerializable
     }
 
     /**
+     * APNS doc: The topic for the notification. In general, the topic is your app’s bundle ID,
+     * but it may have a suffix based on the push notification’s type.
+     *
      * @param string $topicName
      */
     public function setTopic(string $topicName): void
