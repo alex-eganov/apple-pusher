@@ -16,7 +16,7 @@ class Sender
 
     private string $baseUrl;
     private AuthInterface $auth;
-    private ?CurlConfig $curlConfig;
+    private CurlConfig $curlConfig;
 
     /**
      * @param AuthInterface $auth
@@ -29,7 +29,7 @@ class Sender
             ? self::BASE_URL_DEV
             : self::BASE_URL;
         $this->auth = $auth;
-        $this->curlConfig = $config ?: new CurlConfig();
+        $this->curlConfig = $config ? $config : new CurlConfig();
     }
 
     /**
