@@ -54,6 +54,7 @@ abstract class AbstractPayload implements PayloadInterface
      */
     public function setCustomData(array $data): void
     {
+        unset($data['aps']);
         $this->customData = $data;
     }
 
