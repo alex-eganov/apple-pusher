@@ -51,7 +51,7 @@ class Push implements JsonSerializable
      * @param string $newDeviceToken
      * @return static
      */
-    public function withDevice(string $newDeviceToken): self
+    public function cloneWithDeviceToken(string $newDeviceToken): self
     {
         $instance = clone $this;
         $instance->deviceToken = $newDeviceToken;
@@ -65,7 +65,7 @@ class Push implements JsonSerializable
      *
      * @return string
      */
-    public function getDevice(): string
+    public function getDeviceToken(): string
     {
         return $this->deviceToken;
     }

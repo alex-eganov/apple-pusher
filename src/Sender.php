@@ -72,7 +72,7 @@ class Sender
      */
     final public function send(Push $push): Response
     {
-        $ch = curl_init($this->getUrl($push->getDevice()));
+        $ch = curl_init($this->getUrl($push->getDeviceToken()));
 
         $curlOptions = [
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2,

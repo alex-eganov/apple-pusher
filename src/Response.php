@@ -95,7 +95,7 @@ class Response implements JsonSerializable
         return [
             'ok' => $this->isOk(),
             'pushId' => $this->getPushId(),
-            'device' => $this->push->getDevice(),
+            'device' => $this->push->getDeviceToken(),
             'reason' => $this->getReason(),
             'body' => $this->getBody(),
         ];
