@@ -11,23 +11,23 @@ use bIbI4k0\ApplePusher\Exceptions\CurlException;
  */
 class Sender
 {
-    private const BASE_URL = 'api.push.apple.com';
-    private const BASE_URL_DEV = 'api.sandbox.push.apple.com';
+    private const APNS_HOST = 'api.push.apple.com';
+    private const APNS_DEV_HOST = 'api.sandbox.push.apple.com';
 
     private string $baseUrl;
     private AuthInterface $auth;
     private CurlConfig $curlConfig;
 
     /**
-     * @param AuthInterface $auth
-     * @param bool $isDevMode
+     * @param AuthInterface $auth apns auth implementation
+     * @param bool $isDevMode if true, notifications will be sent to dev apns server
      * @param CurlConfig|null $config
      */
     public function __construct(AuthInterface $auth, bool $isDevMode, CurlConfig $config = null)
     {
         $this->baseUrl = $isDevMode
-            ? self::BASE_URL_DEV
-            : self::BASE_URL;
+            ? self::APNS_DEV_HOST
+            : self::APNS_HOST;
         $this->auth = $auth;
         $this->curlConfig = $config ? $config : new CurlConfig();
     }
