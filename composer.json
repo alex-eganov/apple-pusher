@@ -16,9 +16,17 @@
         "ramsey/uuid": "^4.1",
         "lcobucci/jwt": "^3.3"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
     "autoload": {
         "psr-4": {
             "bIbI4k0\\ApplePusher\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     }
 }
