@@ -3,9 +3,9 @@
 namespace Tests;
 
 use bIbI4k0\ApplePusher\Push;
-use bIbI4k0\ApplePusher\Types\AlertPayload;
-use bIbI4k0\ApplePusher\Types\BackgroundPayload;
-use bIbI4k0\ApplePusher\Types\PayloadInterface;
+use bIbI4k0\ApplePusher\Payload\AlertPayload;
+use bIbI4k0\ApplePusher\Payload\BackgroundPayload;
+use bIbI4k0\ApplePusher\Payload\PayloadInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

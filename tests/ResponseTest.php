@@ -5,7 +5,7 @@ namespace Tests;
 use bIbI4k0\ApplePusher\Push;
 use bIbI4k0\ApplePusher\Response;
 use bIbI4k0\ApplePusher\ResponseStatus;
-use bIbI4k0\ApplePusher\Types\AlertPayload;
+use bIbI4k0\ApplePusher\Payload\AlertPayload;
 use PHPUnit\Framework\TestCase;
 
 /**

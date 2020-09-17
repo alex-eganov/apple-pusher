@@ -2,7 +2,7 @@
 
 namespace bIbI4k0\ApplePusher;
 
-use bIbI4k0\ApplePusher\Types\PayloadInterface;
+use bIbI4k0\ApplePusher\Payload\PayloadInterface;
 use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 

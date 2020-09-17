@@ -1,6 +1,6 @@
 <?php
 
-namespace bIbI4k0\ApplePusher\Types;
+namespace bIbI4k0\ApplePusher\Payload;
 
 /**
  * Class Background

@@ -2,7 +2,7 @@
 
 namespace Tests\Types;
 
-use bIbI4k0\ApplePusher\Types\AbstractPayload;
+use bIbI4k0\ApplePusher\Payload\AbstractPayload;
 
 /**
  * Class StubPayload

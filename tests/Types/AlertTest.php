@@ -2,7 +2,7 @@
 
 namespace Tests\Types;
 
-use bIbI4k0\ApplePusher\Types\AlertPayload;
+use bIbI4k0\ApplePusher\Payload\AlertPayload;
 use PHPUnit\Framework\TestCase;
 
 /**
