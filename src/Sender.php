@@ -26,22 +26,22 @@ class Sender
     private $auth;
 
     /**
-     * @var CurlConfig
+     * @var BaseCurlConfig
      */
     private $curlConfig;
 
     /**
      * @param AuthInterface $auth apns auth implementation
      * @param bool $isDevMode if true, notifications will be sent to dev apns server
-     * @param CurlConfig|null $config
+     * @param BaseCurlConfig|null $config
      */
-    public function __construct(AuthInterface $auth, bool $isDevMode, CurlConfig $config = null)
+    public function __construct(AuthInterface $auth, bool $isDevMode, BaseCurlConfig $config = null)
     {
         $this->baseUrl = $isDevMode
             ? self::APNS_DEV_HOST
             : self::APNS_HOST;
         $this->auth = $auth;
-        $this->curlConfig = $config ? $config : new CurlConfig();
+        $this->curlConfig = $config ? $config : new BaseCurlConfig();
     }
 
     /**
@@ -95,7 +95,12 @@ class Sender
             CURLOPT_POSTFIELDS => json_encode($push),
             CURLOPT_RETURNTRANSFER => true,
         ];
-        $curlOptions = array_replace($curlOptions, $this->curlConfig->getOptions(), $this->auth->getCurlOptions());
+        $curlOptions = array_replace($curlOptions, $this->auth->getCurlOptions());
+        foreach ($this->curlConfig->getOptions() as $opt => $value) {
+            if (!in_array($opt, $curlOptions, true)) {
+                $curlOptions[$opt] = $value;
+            }
+        }
         curl_setopt_array($ch, $curlOptions);
 
         $responseBody = curl_exec($ch);

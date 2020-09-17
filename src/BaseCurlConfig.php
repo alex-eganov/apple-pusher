@@ -3,10 +3,10 @@
 namespace bIbI4k0\ApplePusher;
 
 /**
- * Class CurlConfig
+ * Class BaseCurlConfig
  * @package bIbI4k0\ApplePusher
  */
-class CurlConfig
+class BaseCurlConfig
 {
     private $options = [
         CURLOPT_TIMEOUT => 3,
@@ -45,7 +45,7 @@ class CurlConfig
     /**
      * @return array
      */
-    public function getOptions(): array
+    final public function getOptions(): array
     {
         return $this->options;
     }
