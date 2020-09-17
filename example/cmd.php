@@ -8,7 +8,7 @@ $loader->setPsr4('bIbI4k0\\', __DIR__ . '/src/');
 
 use bIbI4k0\ApplePusher\Auth\CertAuth;
 use bIbI4k0\ApplePusher\Auth\TokenAuth;
-use bIbI4k0\ApplePusher\Exceptions\CurlException;
+use bIbI4k0\ApplePusher\Exception\CurlException;
 use bIbI4k0\ApplePusher\Push;
 use bIbI4k0\ApplePusher\Sender;
 use bIbI4k0\ApplePusher\Payload\AlertPayload;

@@ -3,7 +3,7 @@
 namespace bIbI4k0\ApplePusher;
 
 use bIbI4k0\ApplePusher\Auth\AuthInterface;
-use bIbI4k0\ApplePusher\Exceptions\CurlException;
+use bIbI4k0\ApplePusher\Exception\CurlException;
 
 /**
  * Class Sender
