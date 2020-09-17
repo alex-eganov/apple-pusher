@@ -3,8 +3,8 @@
 namespace bIbI4k0\ApplePusher\Payload;
 
 /**
- * Class Background
- * @package bIbI4k0\ApplePusher\Types
+ * Class BackgroundPayload
+ * @package bIbI4k0\ApplePusher\Payload
  */
 class BackgroundPayload extends AbstractPayload
 {

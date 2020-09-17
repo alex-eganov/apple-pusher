@@ -4,7 +4,7 @@ namespace bIbI4k0\ApplePusher\Payload;
 
 /**
  * Class AbstractPayload
- * @package bIbI4k0\ApplePusher\Types
+ * @package bIbI4k0\ApplePusher\Payload
  */
 abstract class AbstractPayload implements PayloadInterface
 {
