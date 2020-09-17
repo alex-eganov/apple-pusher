@@ -8,9 +8,20 @@ namespace bIbI4k0\ApplePusher\Types;
  */
 class Alert extends AbstractPayload
 {
-    private string $title;
-    private ?string $subTitle;
-    private ?string $body;
+    /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * @var string|null
+     */
+    private  $subTitle;
+
+    /**
+     * @var string|null
+     */
+    private  $body;
 
     /**
      * @param string $title

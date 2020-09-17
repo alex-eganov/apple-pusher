@@ -14,9 +14,20 @@ class Sender
     private const APNS_HOST = 'api.push.apple.com';
     private const APNS_DEV_HOST = 'api.sandbox.push.apple.com';
 
-    private string $baseUrl;
-    private AuthInterface $auth;
-    private CurlConfig $curlConfig;
+    /**
+     * @var string
+     */
+    private $baseUrl;
+
+    /**
+     * @var AuthInterface
+     */
+    private $auth;
+
+    /**
+     * @var CurlConfig
+     */
+    private $curlConfig;
 
     /**
      * @param AuthInterface $auth apns auth implementation

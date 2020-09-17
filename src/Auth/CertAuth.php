@@ -10,8 +10,15 @@ namespace bIbI4k0\ApplePusher\Auth;
  */
 class CertAuth implements AuthInterface
 {
-    private string $certFile;
-    private string $certPassword;
+    /**
+     * @var string
+     */
+    private $certFile;
+
+    /**
+     * @var string
+     */
+    private $certPassword;
 
     /**
      * @param string $certFile

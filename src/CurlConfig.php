@@ -8,7 +8,7 @@ namespace bIbI4k0\ApplePusher;
  */
 class CurlConfig
 {
-    private array $options = [
+    private $options = [
         CURLOPT_TIMEOUT => 3,
         CURLOPT_CONNECTTIMEOUT => 3,
     ];

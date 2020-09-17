@@ -8,8 +8,15 @@ namespace bIbI4k0\ApplePusher\Types;
  */
 abstract class AbstractPayload implements PayloadInterface
 {
-    private array $apsData = [];
-    private array $customData = [];
+    /**
+     * @var array
+     */
+    private $apsData = [];
+
+    /**
+     * @var array
+     */
+    private $customData = [];
 
     /**
      * @param string $key

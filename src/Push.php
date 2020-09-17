@@ -12,10 +12,25 @@ use Ramsey\Uuid\Uuid;
  */
 class Push implements JsonSerializable
 {
-    private string $deviceToken;
-    private string $uuid;
-    private PayloadInterface $payload;
-    private array $options = [];
+    /**
+     * @var string
+     */
+    private $deviceToken;
+
+    /**
+     * @var string
+     */
+    private $uuid;
+
+    /**
+     * @var PayloadInterface
+     */
+    private $payload;
+
+    /*
+     * array
+     */
+    private $options = [];
 
     /**
      * @param string $deviceToken

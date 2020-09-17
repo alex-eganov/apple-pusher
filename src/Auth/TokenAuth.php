@@ -18,7 +18,7 @@ class TokenAuth implements AuthInterface
     /**
      * @var Token
      */
-    private Token $token;
+    private $token;
 
     /**
      * @param string $apnsId APNS key

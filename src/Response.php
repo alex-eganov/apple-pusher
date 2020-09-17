@@ -10,10 +10,25 @@ use JsonSerializable;
  */
 class Response implements JsonSerializable
 {
-    private int $code;
-    private Push $push;
-    private ?string $reason;
-    private ?array $body;
+    /**
+     * @var int
+     */
+    private $code;
+
+    /**
+     * @var Push
+     */
+    private $push;
+
+    /**
+     * @var string|null
+     */
+    private $reason;
+
+    /**
+     * @var array|null
+     */
+    private $body;
 
     /**
      * @param int $code status code of the request
@@ -37,7 +52,7 @@ class Response implements JsonSerializable
      */
     public static function fromJson(string $json, int $statusCode, Push $push): self
     {
-        $json = json_decode($json, true, JSON_THROW_ON_ERROR);
+        $json = json_decode($json, true);
         return new self($statusCode, $push, $json['reason'] ?? null, $json);
     }
 
