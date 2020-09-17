@@ -5,7 +5,7 @@ namespace Tests;
 use bIbI4k0\ApplePusher\Push;
 use bIbI4k0\ApplePusher\Response;
 use bIbI4k0\ApplePusher\ResponseStatus;
-use bIbI4k0\ApplePusher\Types\Alert;
+use bIbI4k0\ApplePusher\Types\AlertPayload;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,7 +27,7 @@ class ResponseTest extends TestCase
         string $reason = null,
         Push $push = null
     ): Response {
-        $push = $push ?: new Push(self::TEST_TOKEN, new Alert('some title'));
+        $push = $push ?: new Push(self::TEST_TOKEN, new AlertPayload('some title'));
 
         return new Response($httpCode, $push, $reason);
     }

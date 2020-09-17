@@ -3,7 +3,7 @@
 namespace Tests;
 
 use bIbI4k0\ApplePusher\Push;
-use bIbI4k0\ApplePusher\Types\Alert;
+use bIbI4k0\ApplePusher\Types\AlertPayload;
 use bIbI4k0\ApplePusher\Types\Background;
 use bIbI4k0\ApplePusher\Types\PayloadInterface;
 use PHPUnit\Framework\TestCase;
@@ -27,11 +27,11 @@ class PushTest extends TestCase
 
     /**
      * @param string $title
-     * @return Alert
+     * @return AlertPayload
      */
-    private function makeAlertPayload(string $title = 'test title'): Alert
+    private function makeAlertPayload(string $title = 'test title'): AlertPayload
     {
-        return new Alert($title);
+        return new AlertPayload($title);
     }
 
     public function testGetOptions(): void
@@ -45,7 +45,7 @@ class PushTest extends TestCase
 
         $this->assertEquals([
             'topic' => 'topic',
-            'type' => Alert::TYPE_ALERT,
+            'type' => AlertPayload::TYPE_ALERT,
             'priority' => 10,
             'expiration' => 100,
         ], $options);
@@ -56,11 +56,11 @@ class PushTest extends TestCase
         $push = $this->makePush($this->makeAlertPayload());
 
         $options = $push->getOptions();
-        $this->assertEquals(Alert::TYPE_ALERT, $options['type']);
+        $this->assertEquals(AlertPayload::TYPE_ALERT, $options['type']);
 
         $push->setPayload(new Background());
         $options = $push->getOptions();
-        $this->assertEquals(Alert::TYPE_BACKGROUND, $options['type']);
+        $this->assertEquals(AlertPayload::TYPE_BACKGROUND, $options['type']);
     }
 
     public function testCloneWithDevice(): void

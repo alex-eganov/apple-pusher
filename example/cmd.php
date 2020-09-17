@@ -11,7 +11,7 @@ use bIbI4k0\ApplePusher\Auth\TokenAuth;
 use bIbI4k0\ApplePusher\Exceptions\CurlException;
 use bIbI4k0\ApplePusher\Push;
 use bIbI4k0\ApplePusher\Sender;
-use bIbI4k0\ApplePusher\Types\Alert;
+use bIbI4k0\ApplePusher\Types\AlertPayload;
 
 $helpText = <<< HELP
     --type      auth type: token, cert
@@ -108,7 +108,7 @@ if (!$alertTitle) {
 }
 $alertText = $args['text'] ?? null;
 
-$payload = new Alert($alertTitle, null, $alertText);
+$payload = new AlertPayload($alertTitle, null, $alertText);
 $push = new Push($device, $payload);
 $push->setTopic($bundleId);
 

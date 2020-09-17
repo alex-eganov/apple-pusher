@@ -6,7 +6,7 @@ namespace bIbI4k0\ApplePusher\Types;
  * Class Alert
  * @package bIbI4k0\ApplePusher\Types
  */
-class Alert extends AbstractPayload
+class AlertPayload extends AbstractPayload
 {
     /**
      * @var string

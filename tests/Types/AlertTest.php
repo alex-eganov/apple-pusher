@@ -2,7 +2,7 @@
 
 namespace Tests\Types;
 
-use bIbI4k0\ApplePusher\Types\Alert;
+use bIbI4k0\ApplePusher\Types\AlertPayload;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class AlertTest extends TestCase
     public function testTitle(): void
     {
         $title = 'test title';
-        $alert = new Alert($title);
+        $alert = new AlertPayload($title);
 
         $json = $alert->jsonSerialize();
         $this->assertArrayHasKey('aps', $json);
@@ -33,7 +33,7 @@ class AlertTest extends TestCase
     {
         $title = 'test title';
         $subTitle = 'test subtitle';
-        $alert = new Alert($title, $subTitle);
+        $alert = new AlertPayload($title, $subTitle);
 
         $alertData = $alert->jsonSerialize()['aps']['alert'];
 
@@ -47,7 +47,7 @@ class AlertTest extends TestCase
         $title = 'test title';
         $subTitle = 'test subtitle';
         $body = 'test body';
-        $alert = new Alert($title, $subTitle, $body);
+        $alert = new AlertPayload($title, $subTitle, $body);
 
         $alertData = $alert->jsonSerialize()['aps']['alert'];
 
