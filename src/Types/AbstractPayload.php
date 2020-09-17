@@ -37,10 +37,12 @@ abstract class AbstractPayload implements PayloadInterface
      * Default state is null.
      *
      * @param int|null $count
+     * @return static
      */
-    public function setBadge(int $count = null): void
+    public function setBadge(int $count = null): self
     {
         $this->setApsValue('badge', $count !== null && $count >= 0 ? $count : null);
+        return $this;
     }
 
     /**
@@ -48,21 +50,25 @@ abstract class AbstractPayload implements PayloadInterface
      * of one of the UNNotificationCategory objects you register at launch time.
      *
      * @param string|null $category
+     * @return static
      */
-    public function setCategory(string $category = null): void
+    public function setCategory(string $category = null): self
     {
         $this->setApsValue('category', $category);
+        return $this;
     }
 
     /**
      * Assoc array merged with payload on the root level
      *
      * @param array $data
+     * @return static
      */
-    public function setCustomData(array $data): void
+    public function setCustomData(array $data): self
     {
         unset($data['aps']);
         $this->customData = $data;
+        return $this;
     }
 
     /**
