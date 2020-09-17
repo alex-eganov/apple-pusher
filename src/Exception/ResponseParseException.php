@@ -3,9 +3,9 @@
 namespace bIbI4k0\ApplePusher\Exception;
 
 /**
- * Class CurlException
+ * Class ResponseParseException
  * @package bIbI4k0\ApplePusher\Exception
  */
-class CurlException extends ApplePusherException
+class ResponseParseException extends ApplePusherException
 {
 }

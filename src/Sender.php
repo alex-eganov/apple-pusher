@@ -4,6 +4,7 @@ namespace bIbI4k0\ApplePusher;
 
 use bIbI4k0\ApplePusher\Auth\AuthInterface;
 use bIbI4k0\ApplePusher\Exception\CurlException;
+use bIbI4k0\ApplePusher\Exception\ResponseParseException;
 
 /**
  * Class Sender
@@ -80,6 +81,7 @@ class Sender
      * @return Response wrapped response of apns server
      *
      * @throws CurlException when curl errors was happened
+     * @throws ResponseParseException when an error occurred while parsing the JSON-response
      */
     final public function send(Push $push): Response
     {

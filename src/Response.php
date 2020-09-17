@@ -2,6 +2,7 @@
 
 namespace bIbI4k0\ApplePusher;
 
+use bIbI4k0\ApplePusher\Exception\ResponseParseException;
 use JsonSerializable;
 
 /**
@@ -48,11 +49,17 @@ class Response implements JsonSerializable
      * @param string $json
      * @param int $statusCode
      * @param Push $push
+     *
      * @return static
+     *
+     * @throws ResponseParseException
      */
     public static function fromJson(string $json, int $statusCode, Push $push): self
     {
         $json = json_decode($json, true);
+        if ($json === null && ($errNo = json_last_error()) !== JSON_ERROR_NONE) {
+            throw new ResponseParseException(json_last_error_msg(), $errNo);
+        }
         return new self($statusCode, $push, $json['reason'] ?? null, $json);
     }
 
