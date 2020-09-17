@@ -99,10 +99,12 @@ class Push implements JsonSerializable
      * APNS doc: The date at which the notification is no longer valid.
      *
      * @param int $utcTime
+     * @return static
      */
-    public function setExpiration(int $utcTime): void
+    public function setExpiration(int $utcTime): self
     {
         $this->addOption('expiration', (string)$utcTime);
+        return $this;
     }
 
     /**
@@ -110,10 +112,12 @@ class Push implements JsonSerializable
      * Specify 10 to send the notification immediately.
      *
      * @param int $level
+     * @return static
      */
-    public function setPriority(int $level): void
+    public function setPriority(int $level): self
     {
         $this->addOption('priority', (string)$level);
+        return $this;
     }
 
     /**
@@ -121,19 +125,23 @@ class Push implements JsonSerializable
      * but it may have a suffix based on the push notification’s type.
      *
      * @param string $topicName
+     * @return static
      */
-    public function setTopic(string $topicName): void
+    public function setTopic(string $topicName): self
     {
         $this->addOption('topic', $topicName);
+        return $this;
     }
 
     /**
      * @param PayloadInterface $payload
+     * @return static
      */
-    public function setPayload(PayloadInterface $payload): void
+    public function setPayload(PayloadInterface $payload): self
     {
         $this->payload = $payload;
         $this->addOption('type', $payload->getType());
+        return $this;
     }
 
     public function getPayload(): PayloadInterface
