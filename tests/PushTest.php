@@ -4,7 +4,7 @@ namespace Tests;
 
 use bIbI4k0\ApplePusher\Push;
 use bIbI4k0\ApplePusher\Types\AlertPayload;
-use bIbI4k0\ApplePusher\Types\Background;
+use bIbI4k0\ApplePusher\Types\BackgroundPayload;
 use bIbI4k0\ApplePusher\Types\PayloadInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -58,7 +58,7 @@ class PushTest extends TestCase
         $options = $push->getOptions();
         $this->assertEquals(AlertPayload::TYPE_ALERT, $options['type']);
 
-        $push->setPayload(new Background());
+        $push->setPayload(new BackgroundPayload());
         $options = $push->getOptions();
         $this->assertEquals(AlertPayload::TYPE_BACKGROUND, $options['type']);
     }

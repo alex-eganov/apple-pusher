@@ -6,7 +6,7 @@ namespace bIbI4k0\ApplePusher\Types;
  * Class Background
  * @package bIbI4k0\ApplePusher\Types
  */
-class Background extends AbstractPayload
+class BackgroundPayload extends AbstractPayload
 {
     /**
      * @return string
