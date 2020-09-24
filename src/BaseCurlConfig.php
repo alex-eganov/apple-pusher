@@ -47,6 +47,15 @@ class BaseCurlConfig
     }
 
     /**
+     * @param int $port
+     * @return $this
+     */
+    public function setPort(int $port): self
+    {
+        return $this->set(CURLOPT_PORT, $port);
+    }
+
+    /**
      * @return array
      */
     final public function getOptions(): array
