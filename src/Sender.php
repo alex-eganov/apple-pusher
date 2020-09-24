@@ -88,12 +88,8 @@ class Sender
         $ch = curl_init($this->getUrl($push->getDeviceToken()));
 
         $curlOptions = [
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2,
-            CURLOPT_PORT => 443,
             CURLOPT_HTTPHEADER => $this->prepareHeaders($push),
-            CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => json_encode($push),
-            CURLOPT_RETURNTRANSFER => true,
         ];
         $curlOptions = array_replace($curlOptions, $this->auth->getCurlOptions());
         foreach ($this->curlConfig->getOptions() as $opt => $value) {

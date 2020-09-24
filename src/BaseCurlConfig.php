@@ -9,6 +9,10 @@ namespace bIbI4k0\ApplePusher;
 class BaseCurlConfig
 {
     private $options = [
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2,
+        CURLOPT_PORT => 443,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT => 3,
         CURLOPT_CONNECTTIMEOUT => 3,
     ];
