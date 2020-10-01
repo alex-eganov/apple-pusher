@@ -9,26 +9,26 @@ namespace bIbI4k0\ApplePusher\Payload;
 class AlertPayload extends AbstractPayload
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $title;
 
     /**
      * @var string|null
      */
-    private  $subTitle;
+    private $subTitle;
 
     /**
      * @var string|null
      */
-    private  $body;
+    private $body;
 
     /**
-     * @param string $title
+     * @param string|null $title
      * @param string|null $subTitle
      * @param string|null $body
      */
-    public function __construct(string $title, string $subTitle = null, string $body = null)
+    public function __construct(string $title = null, string $subTitle = null, string $body = null)
     {
         $this->title = $title;
         $this->subTitle = $subTitle;
