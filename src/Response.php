@@ -57,7 +57,7 @@ class Response implements JsonSerializable
     public static function fromJson(string $json, int $statusCode, Push $push): self
     {
         $json = json_decode($json, true);
-        if ($json === null && ($errNo = json_last_error()) !== JSON_ERROR_NONE) {
+        if (($errNo = json_last_error()) !== JSON_ERROR_NONE) {
             throw new ResponseParseException(json_last_error_msg(), $errNo);
         }
         return new self($statusCode, $push, $json['reason'] ?? null, $json);
