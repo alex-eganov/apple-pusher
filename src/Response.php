@@ -27,22 +27,15 @@ class Response implements JsonSerializable
     private $reason;
 
     /**
-     * @var array|null
-     */
-    private $body;
-
-    /**
      * @param int $code status code of the request
      * @param Push $push
      * @param string|null $reason text reason for the failed request
-     * @param array|null $body decoded json body
      */
-    public function __construct(int $code, Push $push, string $reason = null, array $body = null)
+    public function __construct(int $code, Push $push, string $reason = null)
     {
         $this->code = $code;
         $this->push = $push;
         $this->reason = $reason;
-        $this->body = $body;
     }
 
     /**
@@ -60,7 +53,7 @@ class Response implements JsonSerializable
         if (($errNo = json_last_error()) !== JSON_ERROR_NONE) {
             throw new ResponseParseException(json_last_error_msg(), $errNo);
         }
-        return new self($statusCode, $push, $json['reason'] ?? null, $json);
+        return new self($statusCode, $push, $json['reason'] ?? null);
     }
 
     /**
@@ -100,16 +93,6 @@ class Response implements JsonSerializable
     }
 
     /**
-     * Returns decoded json body of request, or null
-     *
-     * @return array|null
-     */
-    public function getBody(): ?array
-    {
-        return $this->body;
-    }
-
-    /**
      * @return array
      */
     public function jsonSerialize(): array
@@ -119,7 +102,6 @@ class Response implements JsonSerializable
             'pushId' => $this->getPushId(),
             'device' => $this->push->getDeviceToken(),
             'reason' => $this->getReason(),
-            'body' => $this->getBody(),
         ];
     }
 }
