@@ -36,36 +36,6 @@ class AlertPayload extends AbstractPayload
     }
 
     /**
-     * @param string $bodyText
-     *
-     * @return static
-     */
-    public static function fromString(string $bodyText): self
-    {
-        return new self(null, null, $bodyText);
-    }
-
-    /**
-     * @param string|null $subTitle
-     * @return static
-     */
-    public function setSubTitle(string $subTitle = null): self
-    {
-        $this->subTitle = $subTitle;
-        return $this;
-    }
-
-    /**
-     * @param string|null $body
-     * @return static
-     */
-    public function setBody(string $body = null): self
-    {
-        $this->body = $body;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getType(): string
