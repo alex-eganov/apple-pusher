@@ -27,7 +27,7 @@ class Response implements JsonSerializable
     private $reason;
 
     /**
-     * @param int $code status code of the request
+     * @param int $code status code from apns-response
      * @param Push $push
      * @param string|null $reason text reason for the failed request
      */
