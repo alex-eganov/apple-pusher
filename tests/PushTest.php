@@ -75,4 +75,15 @@ class PushTest extends TestCase
         $this->assertNotEquals($push->getDeviceToken(), $anotherPush->getDeviceToken());
         $this->assertNotEquals($push->getUuid(), $anotherPush->getUuid());
     }
+
+    public function testPushUUID(): void
+    {
+        $push = $this->makePush($this->makeAlertPayload());
+
+        $isMatched = (bool)preg_match(
+            "/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i",
+            $push->getUuid()
+        );
+        $this->assertTrue($isMatched);
+    }
 }
