@@ -2,10 +2,8 @@
 
 namespace Tests;
 
-use bIbI4k0\ApplePusher\Push;
 use bIbI4k0\ApplePusher\Payload\AlertPayload;
 use bIbI4k0\ApplePusher\Payload\BackgroundPayload;
-use bIbI4k0\ApplePusher\Payload\PayloadInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,25 +12,9 @@ use PHPUnit\Framework\TestCase;
  */
 class PushTest extends TestCase
 {
+    use StubMakerTrait;
+
     private const TEST_TOKEN = 'test token';
-
-    /**
-     * @param PayloadInterface $payload
-     * @return Push
-     */
-    private function makePush(PayloadInterface $payload): Push
-    {
-        return new Push(self::TEST_TOKEN, $payload);
-    }
-
-    /**
-     * @param string $title
-     * @return AlertPayload
-     */
-    private function makeAlertPayload(string $title = 'test title'): AlertPayload
-    {
-        return new AlertPayload($title);
-    }
 
     public function testGetOptions(): void
     {
