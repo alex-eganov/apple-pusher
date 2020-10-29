@@ -98,4 +98,42 @@ class PayloadTest extends TestCase
         $this->assertIsArray($data);
         $this->assertNotEquals($apsValue, $data);
     }
+
+    public function testSetSound(): void
+    {
+        $soundFile = 'icq.mp3';
+
+        $payload = new StubPayload();
+        $payload->setSound($soundFile);
+
+        $data = $payload->jsonSerialize()['aps'];
+
+        $this->assertArrayHasKey('sound', $data);
+        $this->assertEquals($soundFile, $data['sound']);
+
+        // drop sound to default
+        $payload->setSound();
+        $data = $payload->jsonSerialize()['aps'];
+        $this->assertArrayNotHasKey('sound', $data);
+    }
+
+    public function testSetSoundDict(): void
+    {
+        $soundFile = 'icq.mp3';
+        $isCritical = true;
+        $volume = 1.2;
+
+        $payload = new StubPayload();
+        $payload->setSoundDict($soundFile, $isCritical, $volume);
+
+        $data = $payload->jsonSerialize()['aps'];
+
+        $this->assertArrayHasKey('sound', $data);
+        $this->assertIsArray($data['sound']);
+
+        $soundData = $data['sound'];
+        $this->assertEquals($soundFile, $soundData['name']);
+        $this->assertEquals(1.0, $soundData['volume']);
+        $this->assertEquals((int)$isCritical, $soundData['critical']);
+    }
 }

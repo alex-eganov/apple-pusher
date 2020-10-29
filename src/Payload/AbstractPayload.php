@@ -46,6 +46,48 @@ abstract class AbstractPayload implements PayloadInterface
     }
 
     /**
+     * Set sound of this alert. Specify the string "default" to play the system sound.
+     * Use this key for regular notifications.
+     *
+     * Specify null for drop any value.
+     *
+     * @param string|null $appSoundFile The name of a sound file in your app’s main bundle
+     * or in the Library/Sounds folder of your app’s container directory.
+     *
+     * @return $this
+     */
+    public function setSound(string $appSoundFile = null): self
+    {
+        $this->setApsValue('sound', $appSoundFile);
+        return $this;
+    }
+
+    /**
+     * @param string $appSoundFile The name of a sound file in your app’s main bundle
+     * or in the Library/Sounds folder of your app’s container directory.
+     * @param bool $isCritical The critical alert flag
+     * @param float $volume The volume for the critical alert’s sound. From 0.0(silent) to 1.0(full volume).
+     *
+     * @return $this
+     */
+    public function setSoundDict(string $appSoundFile, bool $isCritical, float $volume): self
+    {
+        if ($volume < 0) {
+            $volume = 0.0;
+        }
+        if ($volume > 1) {
+            $volume = 1.0;
+        }
+
+        $this->setApsValue('sound', [
+            'name' => $appSoundFile,
+            'critical' => (int)$isCritical,
+            'volume' => $volume,
+        ]);
+        return $this;
+    }
+
+    /**
      * APNS doc: The notification’s type. This string must correspond to the identifier
      * of one of the UNNotificationCategory objects you register at launch time.
      *
