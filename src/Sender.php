@@ -97,7 +97,7 @@ class Sender
             CURLOPT_POSTFIELDS => json_encode($push),
         ];
         $curlOptions = array_replace($curlOptions, $this->auth->getCurlOptions());
-        foreach ($this->curlConfig->getOptions() as $opt => $value) {
+        foreach ($this->curlConfig->getCurlOptions() as $opt => $value) {
             if (!in_array($opt, $curlOptions, true)) {
                 $curlOptions[$opt] = $value;
             }

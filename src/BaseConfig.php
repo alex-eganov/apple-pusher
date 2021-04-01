@@ -18,7 +18,7 @@ class BaseConfig
      */
     private $connection;
 
-    private $options = [
+    private $curlOptions = [
         CURLOPT_PORT => 443,
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_RETURNTRANSFER => true,
@@ -63,7 +63,7 @@ class BaseConfig
      */
     protected function set(int $optId, $value): self
     {
-        $this->options[$optId] = $value;
+        $this->curlOptions[$optId] = $value;
         return $this;
     }
 
@@ -105,8 +105,8 @@ class BaseConfig
     /**
      * @return array
      */
-    final public function getOptions(): array
+    final public function getCurlOptions(): array
     {
-        return $this->options;
+        return $this->curlOptions;
     }
 }
