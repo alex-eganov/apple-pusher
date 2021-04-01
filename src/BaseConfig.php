@@ -26,6 +26,9 @@ class BaseConfig
      */
     private $connection;
 
+    /**
+     * @var array
+     */
     private $curlOptions = [
         CURLOPT_PORT => 443,
         CURLOPT_CUSTOMREQUEST => 'POST',

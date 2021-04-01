@@ -2,10 +2,6 @@
 
 namespace bIbI4k0\ApplePusher\Connection;
 
-use bIbI4k0\ApplePusher\Exception\CurlException;
-use bIbI4k0\ApplePusher\Request;
-use bIbI4k0\ApplePusher\Response;
-
 /**
  * Class Connection
  * @package bIbI4k0\ApplePusher\Connection
