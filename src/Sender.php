@@ -74,11 +74,8 @@ class Sender
         foreach ($push->getOptions() as $name => $value) {
             $headers[] = "apns-$name: $value";
         }
-        $headers[] = "apns-id: {$push->getUuid()}";
 
-        $headers = array_merge($headers, $this->auth->getRequestHeaders());
-
-        return $headers;
+        return array_merge($headers, $this->auth->getRequestHeaders());
     }
 
     /**
@@ -109,9 +106,7 @@ class Sender
 
         $responseBody = curl_exec($curlHandle);
         if ($responseBody === false) {
-            $errNo = curl_errno($curlHandle);
-            $errStr = curl_error($curlHandle);
-            throw new CurlException($errStr, $errNo);
+            throw new CurlException(curl_error($curlHandle), curl_errno($curlHandle));
         }
         $responseCode = curl_getinfo($curlHandle, CURLINFO_RESPONSE_CODE);
 
