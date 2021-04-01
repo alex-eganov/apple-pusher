@@ -112,7 +112,7 @@ class BaseConfig
      */
     final public function getBaseUrl(): string
     {
-        return $this->baseUrl;
+        return "https://{$this->baseUrl}/";
     }
 
     /**

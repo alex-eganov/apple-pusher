@@ -44,7 +44,7 @@ class Sender
 
         $this->auth = $auth;
         $this->config = $config;
-        $this->baseUrl = $config->getBaseUrl();
+        $this->baseUrl = rtrim($config->getBaseUrl(), '/');
         $this->connection = $this->config->getConnection();
     }
 
@@ -56,7 +56,7 @@ class Sender
      */
     protected function getUrl(string $deviceToken): string
     {
-        return sprintf('https://%s/3/device/%s', $this->baseUrl, $deviceToken);
+        return sprintf('%s/3/device/%s', $this->baseUrl, $deviceToken);
     }
 
     /**
