@@ -55,7 +55,7 @@ class Push implements JsonSerializable
      * @param string $key
      * @param string $value
      */
-    protected function addOption(string $key, string $value): void
+    protected function setOption(string $key, string $value): void
     {
         $this->options[$key] = $value;
     }
@@ -103,7 +103,7 @@ class Push implements JsonSerializable
      */
     public function setExpiration(int $utcTime): self
     {
-        $this->addOption('expiration', (string)$utcTime);
+        $this->setOption('expiration', (string)$utcTime);
         return $this;
     }
 
@@ -116,7 +116,7 @@ class Push implements JsonSerializable
      */
     public function setPriority(int $level): self
     {
-        $this->addOption('priority', (string)$level);
+        $this->setOption('priority', (string)$level);
         return $this;
     }
 
@@ -129,7 +129,7 @@ class Push implements JsonSerializable
      */
     public function setTopic(string $topicName): self
     {
-        $this->addOption('topic', $topicName);
+        $this->setOption('topic', $topicName);
         return $this;
     }
 
@@ -140,7 +140,7 @@ class Push implements JsonSerializable
     public function setPayload(PayloadInterface $payload): self
     {
         $this->payload = $payload;
-        $this->addOption('type', $payload->getType());
+        $this->setOption('type', $payload->getType());
         return $this;
     }
 
