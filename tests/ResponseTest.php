@@ -4,8 +4,8 @@ namespace Tests;
 
 use bIbI4k0\ApplePusher\Exception\ResponseParseException;
 use bIbI4k0\ApplePusher\Push;
-use bIbI4k0\ApplePusher\Response;
-use bIbI4k0\ApplePusher\ResponseStatus;
+use bIbI4k0\ApplePusher\Response\Response;
+use bIbI4k0\ApplePusher\Response\StatusCodes;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,7 +25,7 @@ class ResponseTest extends TestCase
      * @return Response
      */
     private function makeResponse(
-        int $httpCode = ResponseStatus::STATUS_OK,
+        int $httpCode = StatusCodes::OK,
         string $reason = null,
         Push $push = null
     ): Response {
@@ -44,7 +44,7 @@ class ResponseTest extends TestCase
     public function testIsNotOk(): void
     {
         $reason = 'test reason';
-        $resp = $this->makeResponse(ResponseStatus::STATUS_BAD_REQUEST, $reason);
+        $resp = $this->makeResponse(StatusCodes::BAD_REQUEST, $reason);
 
         self::assertFalse($resp->isOk());
         self::assertEquals($resp->getReason(), $reason);
@@ -63,7 +63,7 @@ class ResponseTest extends TestCase
 
         $push = $this->makePush($this->makeAlertPayload());
 
-        Response::fromJson($json, ResponseStatus::STATUS_OK, $push);
+        Response::fromJson($json, StatusCodes::OK, $push);
     }
 
     /**
@@ -85,7 +85,7 @@ class ResponseTest extends TestCase
         $json = '';
         $push = $this->makePush($this->makeAlertPayload());
 
-        $response = Response::fromJson($json, ResponseStatus::STATUS_OK, $push);
+        $response = Response::fromJson($json, StatusCodes::OK, $push);
 
         self::assertTrue($response->isOk());
         self::assertNull($response->getReason());
@@ -100,7 +100,7 @@ class ResponseTest extends TestCase
         $json = sprintf('{"reason":"%s"}', $reason);
         $push = $this->makePush($this->makeAlertPayload());
 
-        $response = Response::fromJson($json, ResponseStatus::STATUS_BAD_REQUEST, $push);
+        $response = Response::fromJson($json, StatusCodes::BAD_REQUEST, $push);
 
         self::assertFalse($response->isOk());
         self::assertEquals($reason, $response->getReason());

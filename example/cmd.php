@@ -1,17 +1,18 @@
 <?php
 
+use bIbI4k0\ApplePusher\BaseConfig;
+use bIbI4k0\ApplePusher\Curl\CurlWrapper;
+use bIbI4k0\ApplePusher\Exception\ApplePusherException;
 use Composer\Autoload\ClassLoader;
+use bIbI4k0\ApplePusher\Auth\CertAuth;
+use bIbI4k0\ApplePusher\Auth\TokenAuth;
+use bIbI4k0\ApplePusher\Push;
+use bIbI4k0\ApplePusher\Sender;
+use bIbI4k0\ApplePusher\Payload\AlertPayload;
 
 /** @var ClassLoader $loader */
 $loader = require_once __DIR__ . '/../vendor/autoload.php';
 $loader->setPsr4('bIbI4k0\\', __DIR__ . '/src/');
-
-use bIbI4k0\ApplePusher\Auth\CertAuth;
-use bIbI4k0\ApplePusher\Auth\TokenAuth;
-use bIbI4k0\ApplePusher\Exception\CurlException;
-use bIbI4k0\ApplePusher\Push;
-use bIbI4k0\ApplePusher\Sender;
-use bIbI4k0\ApplePusher\Payload\AlertPayload;
 
 $helpText = <<< HELP
     --type      auth type: token, cert
@@ -51,7 +52,7 @@ function printAsPrettyJson($jsonData): void {
 }
 
 // read command-line params
-$args = getopt('', ['type:', 'cert-file:', 'team-key:', 'apns-key:', 'passwd::', 'bundle:', 'device:', 'title:', 'text:', 'debug:']);
+$args = getopt('', ['type:', 'cert:', 'team-key:', 'apns-key:', 'passwd::', 'bundle:', 'device:', 'title:', 'text:', 'debug:']);
 
 $type = $args['type'] ?? null;
 if (!in_array($type, ['token', 'auth'], true)) {
@@ -59,18 +60,17 @@ if (!in_array($type, ['token', 'auth'], true)) {
     exit(1);
 }
 
-$cert = trim($args['cert-file'] ?? null);
+$cert = trim($args['cert'] ?? null);
 if (!$cert) {
     printMessage('Cert file is not set.');
     exit(1);
 }
-if (substr($cert, 1) !== '/' || substr($cert, 2, 1) !== ':\\') {
-    $cert = __DIR__ . DIRECTORY_SEPARATOR . $cert;
-    if (!is_readable($cert)) {
-        printMessage('Cert file is not readable.');
-        exit(1);
-    }
+
+if (!is_readable($cert)) {
+    printMessage('Cert file is not readable.');
+    exit(1);
 }
+
 
 $auth = null;
 if ($type === 'token') {
@@ -112,7 +112,11 @@ $payload = new AlertPayload($alertTitle, null, $alertText);
 $push = new Push($device, $payload);
 $push->setTopic($bundleId);
 
-$sender = new Sender($auth, $isDebug);
+$sender = new Sender(
+    $auth,
+    new CurlWrapper(),
+    new BaseConfig(true)
+);
 try {
     $resp = $sender->send($push);
     printAsPrettyJson($resp);
@@ -122,7 +126,7 @@ try {
     } else {
         printMessage('Push sent was failed. Reason: ' . $resp->getReason());
     }
-} catch (CurlException $e) {
+} catch (ApplePusherException $e) {
     printMessage($e->getMessage());
     exit(1);
 }
