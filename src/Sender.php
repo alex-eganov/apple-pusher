@@ -3,7 +3,7 @@
 namespace bIbI4k0\ApplePusher;
 
 use bIbI4k0\ApplePusher\Auth\AuthInterface;
-use bIbI4k0\ApplePusher\Connection\Connection;
+use bIbI4k0\ApplePusher\Curl\CurlWrapperInterface;
 use bIbI4k0\ApplePusher\Exception\CurlException;
 use bIbI4k0\ApplePusher\Exception\ResponseParseException;
 use bIbI4k0\ApplePusher\Response\Response;
@@ -15,14 +15,9 @@ use bIbI4k0\ApplePusher\Response\Response;
 class Sender
 {
     /**
-     * @var Connection
+     * @var CurlWrapperInterface
      */
-    private $connection;
-
-    /**
-     * @var string
-     */
-    private $baseUrl;
+    private $curlWrapper;
 
     /**
      * @var AuthInterface
@@ -35,14 +30,19 @@ class Sender
     private $config;
 
     /**
+     * @var string
+     */
+    private $baseUrl;
+
+    /**
      * @param AuthInterface $auth apns auth implementation
-     * @param Connection $connection
+     * @param CurlWrapperInterface $curlWrapper
      * @param BaseConfig $config
      */
-    public function __construct(AuthInterface $auth, Connection $connection, BaseConfig $config)
+    public function __construct(AuthInterface $auth, CurlWrapperInterface $curlWrapper, BaseConfig $config)
     {
         $this->auth = $auth;
-        $this->connection = $connection;
+        $this->curlWrapper = $curlWrapper;
         $this->config = $config;
         $this->baseUrl = rtrim($config->getBaseUrl(), '/');
     }
@@ -76,12 +76,10 @@ class Sender
 
     /**
      * @param Push $push
-     * @return \CurlHandle|false|resource
+     * @return array
      */
-    protected function prepareCurl(Push $push)
+    protected function prepareCurlOptions(Push $push): array
     {
-        $curl = $this->connection->getCurl();
-
         $curlOptions = [
             CURLOPT_URL => $this->getUrl($push->getDeviceToken()),
             CURLOPT_HTTPHEADER => $this->prepareHeaders($push),
@@ -93,9 +91,8 @@ class Sender
                 $curlOptions[$opt] = $value;
             }
         }
-        curl_setopt_array($curl, $curlOptions);
 
-        return $curl;
+        return $curlOptions;
     }
 
     /**
@@ -109,14 +106,9 @@ class Sender
      */
     final public function send(Push $push): Response
     {
-        $curlHandle = $this->prepareCurl($push);
+        $curlOptions = $this->prepareCurlOptions($push);
+        $raw = $this->curlWrapper->send($curlOptions);
 
-        $responseBody = curl_exec($curlHandle);
-        if ($responseBody === false) {
-            throw new CurlException(curl_error($curlHandle), curl_errno($curlHandle));
-        }
-        $responseCode = curl_getinfo($curlHandle, CURLINFO_RESPONSE_CODE);
-
-        return Response::fromJson($responseBody, $responseCode, $push);
+        return Response::fromJson($raw->getBody(), $raw->getCode(), $push);
     }
 }

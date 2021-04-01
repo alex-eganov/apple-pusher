@@ -1,12 +1,12 @@
 <?php
 
-namespace bIbI4k0\ApplePusher\Connection;
+namespace bIbI4k0\ApplePusher\Curl;
 
 /**
- * Class CachedConnection
- * @package bIbI4k0\ApplePusher\Connection
+ * Class CachedCurlWrapper
+ * @package bIbI4k0\ApplePusher\Curl
  */
-class CachedConnection extends Connection
+class CachedCurlWrapper extends CurlWrapper
 {
     /**
      * @var int
@@ -46,9 +46,9 @@ class CachedConnection extends Connection
     }
 
     /**
-     * Reconnect curl
+     * Re-init curl
      */
-    private function reconnect(): void
+    private function init(): void
     {
         $this->close();
         $this->handle = curl_init();
@@ -57,14 +57,12 @@ class CachedConnection extends Connection
 
 
     /**
-     * Returns curl handle
-     *
-     * @return \CurlHandle|false|resource
+     * @inheritDoc
      */
-    public function getCurl()
+    protected function getCurl()
     {
         if ($this->isExpired()) {
-            $this->reconnect();
+            $this->init();
         }
 
         return $this->handle;
