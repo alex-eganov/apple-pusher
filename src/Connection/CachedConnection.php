@@ -16,14 +16,23 @@ class CachedConnection extends Connection
     /**
      * @var int
      */
-    private $reconnectAfterSeconds;
+    private $secondsLifetime;
 
     /**
-     * @param int $reconnectAfterSeconds
+     * @param int $secondsLifetime connection lifetime in seconds
      */
-    public function __construct(int $reconnectAfterSeconds)
+    public function __construct(int $secondsLifetime)
     {
-        $this->reconnectAfterSeconds = $reconnectAfterSeconds;
+        $this->secondsLifetime = $secondsLifetime;
+    }
+
+    /**
+     * @param int $minutesLifetime
+     * @return static
+     */
+    public static function createWithMinutes(int $minutesLifetime): self
+    {
+        return new static($minutesLifetime * 60);
     }
 
     /**
@@ -33,7 +42,7 @@ class CachedConnection extends Connection
      */
     private function isExpired(): bool
     {
-        return $this->lastConnectTimestamp + $this->reconnectAfterSeconds >= time();
+        return $this->lastConnectTimestamp + $this->secondsLifetime >= time();
     }
 
     /**
