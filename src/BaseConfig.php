@@ -2,7 +2,6 @@
 
 namespace bIbI4k0\ApplePusher;
 
-use bIbI4k0\ApplePusher\Connection\Connection;
 use bIbI4k0\ApplePusher\Exception\CurlException;
 
 /**
@@ -22,11 +21,6 @@ class BaseConfig
     private $baseUrl;
 
     /**
-     * @var Connection
-     */
-    private $connection;
-
-    /**
      * @var array
      */
     private $curlOptions = [
@@ -39,16 +33,13 @@ class BaseConfig
 
     /**
      * @param bool $isDevel
-     * @param Connection|null $connection
      * @throws CurlException
      */
-    public function __construct(bool $isDevel, Connection $connection = null)
+    public function __construct(bool $isDevel)
     {
         $this->baseUrl = $isDevel
             ? self::APNS_HOST_DEVELOPMENT
             : self::APNS_HOST_PRODUCTION;
-
-        $this->connection = $connection ?: new Connection();
 
         if (defined('CURL_HTTP_VERSION_2')) {
             $curlHttpVersionConst = CURL_HTTP_VERSION_2;
@@ -116,14 +107,6 @@ class BaseConfig
     final public function getBaseUrl(): string
     {
         return "https://{$this->baseUrl}/";
-    }
-
-    /**
-     * @return Connection
-     */
-    final public function getConnection(): Connection
-    {
-        return $this->connection;
     }
 
     /**

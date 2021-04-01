@@ -35,17 +35,15 @@ class Sender
 
     /**
      * @param AuthInterface $auth apns auth implementation
-     * @param bool $isDevMode if true, notifications will be sent to dev apns server
-     * @param BaseConfig|null $config
+     * @param Connection $connection
+     * @param BaseConfig $config
      */
-    public function __construct(AuthInterface $auth, bool $isDevMode, BaseConfig $config = null)
+    public function __construct(AuthInterface $auth, Connection $connection, BaseConfig $config)
     {
-        $config = $config ?: new BaseConfig($isDevMode);
-
         $this->auth = $auth;
+        $this->connection = $connection;
         $this->config = $config;
         $this->baseUrl = rtrim($config->getBaseUrl(), '/');
-        $this->connection = $this->config->getConnection();
     }
 
     /**
