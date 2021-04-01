@@ -32,22 +32,22 @@ class Sender
     private $auth;
 
     /**
-     * @var BaseCurlConfig
+     * @var BaseConfig
      */
     private $curlConfig;
 
     /**
      * @param AuthInterface $auth apns auth implementation
      * @param bool $isDevMode if true, notifications will be sent to dev apns server
-     * @param BaseCurlConfig|null $config
+     * @param BaseConfig|null $config
      */
-    public function __construct(AuthInterface $auth, bool $isDevMode, BaseCurlConfig $config = null)
+    public function __construct(AuthInterface $auth, bool $isDevMode, BaseConfig $config = null)
     {
         $this->baseUrl = $isDevMode
             ? self::APNS_DEV_HOST
             : self::APNS_HOST;
         $this->auth = $auth;
-        $this->curlConfig = $config ?: new BaseCurlConfig();
+        $this->curlConfig = $config ?: new BaseConfig();
         $this->connection = $this->curlConfig->getConnection();
     }
 

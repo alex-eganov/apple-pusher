@@ -9,7 +9,7 @@ use bIbI4k0\ApplePusher\Exception\CurlException;
  * Class BaseCurlConfig
  * @package bIbI4k0\ApplePusher
  */
-class BaseCurlConfig
+class BaseConfig
 {
     private const MIN_CURL_VERSION = '7.43.0';
 
