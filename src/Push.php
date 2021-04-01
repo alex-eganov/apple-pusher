@@ -18,11 +18,6 @@ class Push implements JsonSerializable
     private $deviceToken;
 
     /**
-     * @var string
-     */
-    private $uuid;
-
-    /**
      * @var PayloadInterface
      */
     private $payload;
@@ -40,15 +35,15 @@ class Push implements JsonSerializable
     {
         $this->deviceToken = $deviceToken;
         $this->setPayload($payload);
-        $this->generateUUID();
+        $this->generateUuid();
     }
 
     /**
-     * Generate and set new unique id for this Push
+     * Set unique id of the push
      */
-    private function generateUUID(): void
+    private function generateUuid(): void
     {
-        $this->uuid = Uuid::uuid4()->toString();
+        $this->setOption('id', Uuid::uuid4()->toString());
     }
 
     /**
@@ -70,7 +65,7 @@ class Push implements JsonSerializable
     {
         $instance = clone $this;
         $instance->deviceToken = $newDeviceToken;
-        $instance->generateUUID();
+        $instance->generateUuid();
 
         return $instance;
     }
@@ -92,7 +87,7 @@ class Push implements JsonSerializable
      */
     public function getUuid(): string
     {
-        return $this->uuid;
+        return $this->options['id'];
     }
 
     /**
