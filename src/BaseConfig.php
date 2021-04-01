@@ -11,7 +11,15 @@ use bIbI4k0\ApplePusher\Exception\CurlException;
  */
 class BaseConfig
 {
+    private const APNS_HOST_PRODUCTION = 'api.push.apple.com';
+    private const APNS_HOST_DEVELOPMENT = 'api.sandbox.push.apple.com';
+
     private const MIN_CURL_VERSION = '7.43.0';
+
+    /**
+     * @var string
+     */
+    private $baseUrl;
 
     /**
      * @var Connection
@@ -27,11 +35,16 @@ class BaseConfig
     ];
 
     /**
+     * @param bool $isDevel
      * @param Connection|null $connection
      * @throws CurlException
      */
-    public function __construct(Connection $connection = null)
+    public function __construct(bool $isDevel, Connection $connection = null)
     {
+        $this->baseUrl = $isDevel
+            ? self::APNS_HOST_DEVELOPMENT
+            : self::APNS_HOST_PRODUCTION;
+
         $this->connection = $connection ?: new Connection();
 
         if (defined('CURL_HTTP_VERSION_2')) {
@@ -92,6 +105,14 @@ class BaseConfig
     public function setPort(int $port): self
     {
         return $this->set(CURLOPT_PORT, $port);
+    }
+
+    /**
+     * @return string
+     */
+    final public function getBaseUrl(): string
+    {
+        return $this->baseUrl;
     }
 
     /**

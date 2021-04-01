@@ -13,9 +13,6 @@ use bIbI4k0\ApplePusher\Exception\ResponseParseException;
  */
 class Sender
 {
-    private const APNS_HOST = 'api.push.apple.com';
-    private const APNS_DEV_HOST = 'api.sandbox.push.apple.com';
-
     /**
      * @var Connection
      */
@@ -43,11 +40,11 @@ class Sender
      */
     public function __construct(AuthInterface $auth, bool $isDevMode, BaseConfig $config = null)
     {
-        $this->baseUrl = $isDevMode
-            ? self::APNS_DEV_HOST
-            : self::APNS_HOST;
+        $config = $config ?: new BaseConfig($isDevMode);
+
         $this->auth = $auth;
-        $this->curlConfig = $config ?: new BaseConfig();
+        $this->curlConfig = $config;
+        $this->baseUrl = $config->getBaseUrl();
         $this->connection = $this->curlConfig->getConnection();
     }
 
