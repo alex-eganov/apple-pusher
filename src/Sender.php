@@ -31,7 +31,7 @@ class Sender
     /**
      * @var BaseConfig
      */
-    private $curlConfig;
+    private $config;
 
     /**
      * @param AuthInterface $auth apns auth implementation
@@ -43,9 +43,9 @@ class Sender
         $config = $config ?: new BaseConfig($isDevMode);
 
         $this->auth = $auth;
-        $this->curlConfig = $config;
+        $this->config = $config;
         $this->baseUrl = $config->getBaseUrl();
-        $this->connection = $this->curlConfig->getConnection();
+        $this->connection = $this->config->getConnection();
     }
 
     /**
@@ -94,7 +94,7 @@ class Sender
             CURLOPT_POSTFIELDS => json_encode($push),
         ];
         $curlOptions = array_replace($curlOptions, $this->auth->getCurlOptions());
-        foreach ($this->curlConfig->getCurlOptions() as $opt => $value) {
+        foreach ($this->config->getCurlOptions() as $opt => $value) {
             if (!in_array($opt, $curlOptions, true)) {
                 $curlOptions[$opt] = $value;
             }
