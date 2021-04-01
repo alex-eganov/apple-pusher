@@ -76,17 +76,12 @@ class Sender
     }
 
     /**
-     * Send request with push-data to apns server and returns wrapped response from it
-     *
      * @param Push $push
-     * @return Response wrapped response of apns server
-     *
-     * @throws CurlException when curl errors was happened
-     * @throws ResponseParseException when an error occurred while parsing the JSON-response
+     * @return \CurlHandle|false|resource
      */
-    final public function send(Push $push): Response
+    protected function prepareCurl(Push $push)
     {
-        $curlHandle = $this->connection->getCurl();
+        $curl = $this->connection->getCurl();
 
         $curlOptions = [
             CURLOPT_URL => $this->getUrl($push->getDeviceToken()),
@@ -99,7 +94,23 @@ class Sender
                 $curlOptions[$opt] = $value;
             }
         }
-        curl_setopt_array($curlHandle, $curlOptions);
+        curl_setopt_array($curl, $curlOptions);
+
+        return $curl;
+    }
+
+    /**
+     * Send request with push-data to apns server and returns wrapped response from it
+     *
+     * @param Push $push
+     * @return Response wrapped response of apns server
+     *
+     * @throws CurlException when curl errors was happened
+     * @throws ResponseParseException when an error occurred while parsing the JSON-response
+     */
+    final public function send(Push $push): Response
+    {
+        $curlHandle = $this->prepareCurl($push);
 
         $responseBody = curl_exec($curlHandle);
         if ($responseBody === false) {
