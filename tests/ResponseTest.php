@@ -36,9 +36,9 @@ class ResponseTest extends TestCase
 
     public function testIsOk(): void
     {
-        $resp = $this->makeResponse(ResponseStatus::STATUS_OK);
+        $resp = $this->makeResponse();
 
-        $this->assertTrue($resp->isOk());
+        self::assertTrue($resp->isOk());
     }
 
     public function testIsNotOk(): void
@@ -46,8 +46,8 @@ class ResponseTest extends TestCase
         $reason = 'test reason';
         $resp = $this->makeResponse(ResponseStatus::STATUS_BAD_REQUEST, $reason);
 
-        $this->assertFalse($resp->isOk());
-        $this->assertEquals($resp->getReason(), $reason);
+        self::assertFalse($resp->isOk());
+        self::assertEquals($resp->getReason(), $reason);
     }
 
     /**
@@ -87,8 +87,8 @@ class ResponseTest extends TestCase
 
         $response = Response::fromJson($json, ResponseStatus::STATUS_OK, $push);
 
-        $this->assertTrue($response->isOk());
-        $this->assertNull($response->getReason());
+        self::assertTrue($response->isOk());
+        self::assertNull($response->getReason());
     }
 
     /**
@@ -102,7 +102,7 @@ class ResponseTest extends TestCase
 
         $response = Response::fromJson($json, ResponseStatus::STATUS_BAD_REQUEST, $push);
 
-        $this->assertFalse($response->isOk());
-        $this->assertEquals($reason, $response->getReason());
+        self::assertFalse($response->isOk());
+        self::assertEquals($reason, $response->getReason());
     }
 }

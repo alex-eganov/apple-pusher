@@ -25,7 +25,7 @@ class PushTest extends TestCase
 
         $options = $push->getOptions();
 
-        $this->assertEquals([
+        self::assertEquals([
             'topic' => 'topic',
             'type' => AlertPayload::TYPE_ALERT,
             'priority' => 10,
@@ -38,11 +38,11 @@ class PushTest extends TestCase
         $push = $this->makePush($this->makeAlertPayload());
 
         $options = $push->getOptions();
-        $this->assertEquals(AlertPayload::TYPE_ALERT, $options['type']);
+        self::assertEquals(AlertPayload::TYPE_ALERT, $options['type']);
 
         $push->setPayload(new BackgroundPayload());
         $options = $push->getOptions();
-        $this->assertEquals(AlertPayload::TYPE_BACKGROUND, $options['type']);
+        self::assertEquals(AlertPayload::TYPE_BACKGROUND, $options['type']);
     }
 
     public function testCloneWithDevice(): void
@@ -51,11 +51,11 @@ class PushTest extends TestCase
 
         $anotherPush = $push->cloneWithDeviceToken('new token');
 
-        $this->assertNotSame($push, $anotherPush);
-        $this->assertEquals($push->getPayload()->jsonSerialize(), $anotherPush->getPayload()->jsonSerialize());
-        $this->assertEquals($push->getOptions(), $anotherPush->getOptions());
-        $this->assertNotEquals($push->getDeviceToken(), $anotherPush->getDeviceToken());
-        $this->assertNotEquals($push->getUuid(), $anotherPush->getUuid());
+        self::assertNotSame($push, $anotherPush);
+        self::assertEquals($push->getPayload()->jsonSerialize(), $anotherPush->getPayload()->jsonSerialize());
+        self::assertEquals($push->getOptions(), $anotherPush->getOptions());
+        self::assertNotEquals($push->getDeviceToken(), $anotherPush->getDeviceToken());
+        self::assertNotEquals($push->getUuid(), $anotherPush->getUuid());
     }
 
     public function testPushUUID(): void
@@ -66,6 +66,6 @@ class PushTest extends TestCase
             "/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i",
             $push->getUuid()
         );
-        $this->assertTrue($isMatched);
+        self::assertTrue($isMatched);
     }
 }

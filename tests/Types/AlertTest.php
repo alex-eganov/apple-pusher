@@ -17,16 +17,16 @@ class AlertTest extends TestCase
         $alert = new AlertPayload($title);
 
         $json = $alert->jsonSerialize();
-        $this->assertArrayHasKey('aps', $json);
+        self::assertArrayHasKey('aps', $json);
 
         $apsData = $json['aps'];
-        $this->assertArrayHasKey('alert', $apsData);
+        self::assertArrayHasKey('alert', $apsData);
 
         $alertData = $apsData['alert'];
-        $this->assertArrayHasKey('title', $alertData);
-        $this->assertArrayNotHasKey('subtitle', $alertData);
-        $this->assertArrayNotHasKey('text', $alertData);
-        $this->assertEquals($title, $alertData['title']);
+        self::assertArrayHasKey('title', $alertData);
+        self::assertArrayNotHasKey('subtitle', $alertData);
+        self::assertArrayNotHasKey('text', $alertData);
+        self::assertEquals($title, $alertData['title']);
     }
 
     public function testSubtitle(): void
@@ -37,9 +37,9 @@ class AlertTest extends TestCase
 
         $alertData = $alert->jsonSerialize()['aps']['alert'];
 
-        $this->assertArrayHasKey('title', $alertData);
-        $this->assertArrayHasKey('subtitle', $alertData);
-        $this->assertArrayNotHasKey('text', $alertData);
+        self::assertArrayHasKey('title', $alertData);
+        self::assertArrayHasKey('subtitle', $alertData);
+        self::assertArrayNotHasKey('text', $alertData);
     }
 
     public function testText(): void
@@ -51,8 +51,8 @@ class AlertTest extends TestCase
 
         $alertData = $alert->jsonSerialize()['aps']['alert'];
 
-        $this->assertArrayHasKey('title', $alertData);
-        $this->assertArrayHasKey('subtitle', $alertData);
-        $this->assertArrayHasKey('body', $alertData);
+        self::assertArrayHasKey('title', $alertData);
+        self::assertArrayHasKey('subtitle', $alertData);
+        self::assertArrayHasKey('body', $alertData);
     }
 }

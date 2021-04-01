@@ -16,8 +16,8 @@ class PayloadTest extends TestCase
 
         $data = $payload->jsonSerialize();
 
-        $this->assertArrayHasKey('aps', $data);
-        $this->assertEmpty($data['aps']);
+        self::assertArrayHasKey('aps', $data);
+        self::assertEmpty($data['aps']);
     }
 
     /**
@@ -32,12 +32,12 @@ class PayloadTest extends TestCase
 
         $aps = $payload->jsonSerialize()['aps'];
 
-        $this->assertArrayHasKey('category', $aps);
-        $this->assertEquals($categoryName, $aps['category']);
+        self::assertArrayHasKey('category', $aps);
+        self::assertEquals($categoryName, $aps['category']);
 
         $payload->setCategory(null);
         $aps = $payload->jsonSerialize()['aps'];
-        $this->assertArrayNotHasKey('category', $aps);
+        self::assertArrayNotHasKey('category', $aps);
     }
 
     /**
@@ -55,7 +55,7 @@ class PayloadTest extends TestCase
         $aps = $payload->jsonSerialize()['aps'];
         $actual = array_key_exists('badge', $aps) ? $badge : 'not set';
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function badgeDataProvider(): array
@@ -80,7 +80,7 @@ class PayloadTest extends TestCase
         $data = $payload->jsonSerialize();
 
         unset($data['aps']);
-        $this->assertEquals($customData, $data);
+        self::assertEquals($customData, $data);
     }
 
     /**
@@ -95,8 +95,8 @@ class PayloadTest extends TestCase
 
         $data = $payload->jsonSerialize()['aps'];
 
-        $this->assertIsArray($data);
-        $this->assertNotEquals($apsValue, $data);
+        self::assertIsArray($data);
+        self::assertNotEquals($apsValue, $data);
     }
 
     public function testSetSound(): void
@@ -108,13 +108,13 @@ class PayloadTest extends TestCase
 
         $data = $payload->jsonSerialize()['aps'];
 
-        $this->assertArrayHasKey('sound', $data);
-        $this->assertEquals($soundFile, $data['sound']);
+        self::assertArrayHasKey('sound', $data);
+        self::assertEquals($soundFile, $data['sound']);
 
         // drop sound to default
         $payload->setSound();
         $data = $payload->jsonSerialize()['aps'];
-        $this->assertArrayNotHasKey('sound', $data);
+        self::assertArrayNotHasKey('sound', $data);
     }
 
     public function testSetSoundDict(): void
@@ -128,12 +128,12 @@ class PayloadTest extends TestCase
 
         $data = $payload->jsonSerialize()['aps'];
 
-        $this->assertArrayHasKey('sound', $data);
-        $this->assertIsArray($data['sound']);
+        self::assertArrayHasKey('sound', $data);
+        self::assertIsArray($data['sound']);
 
         $soundData = $data['sound'];
-        $this->assertEquals($soundFile, $soundData['name']);
-        $this->assertEquals(1.0, $soundData['volume']);
-        $this->assertEquals((int)$isCritical, $soundData['critical']);
+        self::assertEquals($soundFile, $soundData['name']);
+        self::assertEquals(1.0, $soundData['volume']);
+        self::assertEquals((int)$isCritical, $soundData['critical']);
     }
 }
