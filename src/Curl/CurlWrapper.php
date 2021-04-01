@@ -59,6 +59,6 @@ class CurlWrapper implements CurlWrapperInterface
 
         $code = curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
 
-        return new CurlResponse($code, $body);
+        return new CurlResponse($code, trim($body));
     }
 }
