@@ -16,6 +16,16 @@ class PushTest extends TestCase
 
     private const TEST_TOKEN = 'test token';
 
+    private const UUID_RE = '/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i';
+
+    /**
+     * @param string $expected
+     */
+    private static function assertUUID(string $expected): void
+    {
+        self::assertRegExp(self::UUID_RE, $expected);
+    }
+
     public function testGetOptions(): void
     {
         $push = $this->makePush($this->makeAlertPayload());
@@ -25,12 +35,18 @@ class PushTest extends TestCase
 
         $options = $push->getOptions();
 
-        self::assertEquals([
+        $expected = [
             'topic' => 'topic',
             'type' => AlertPayload::TYPE_ALERT,
             'priority' => 10,
             'expiration' => 100,
-        ], $options);
+        ];
+        foreach ($expected as $name => $value) {
+            self::assertArrayHasKey($name, $options);
+            self::assertEquals($value, $options[$name]);
+        }
+        self::assertArrayHasKey('id', $options);
+        self::assertUUID($options['id']);
     }
 
     public function testChangePayload(): void
@@ -53,7 +69,6 @@ class PushTest extends TestCase
 
         self::assertNotSame($push, $anotherPush);
         self::assertEquals($push->getPayload()->jsonSerialize(), $anotherPush->getPayload()->jsonSerialize());
-        self::assertEquals($push->getOptions(), $anotherPush->getOptions());
         self::assertNotEquals($push->getDeviceToken(), $anotherPush->getDeviceToken());
         self::assertNotEquals($push->getUuid(), $anotherPush->getUuid());
     }
@@ -61,11 +76,6 @@ class PushTest extends TestCase
     public function testPushUUID(): void
     {
         $push = $this->makePush($this->makeAlertPayload());
-
-        $isMatched = (bool)preg_match(
-            "/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i",
-            $push->getUuid()
-        );
-        self::assertTrue($isMatched);
+        self::assertUUID($push->getUuid());
     }
 }
