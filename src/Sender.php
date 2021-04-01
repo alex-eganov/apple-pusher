@@ -3,6 +3,7 @@
 namespace bIbI4k0\ApplePusher;
 
 use bIbI4k0\ApplePusher\Auth\AuthInterface;
+use bIbI4k0\ApplePusher\Connection\Connection;
 use bIbI4k0\ApplePusher\Exception\CurlException;
 use bIbI4k0\ApplePusher\Exception\ResponseParseException;
 
@@ -14,6 +15,11 @@ class Sender
 {
     private const APNS_HOST = 'api.push.apple.com';
     private const APNS_DEV_HOST = 'api.sandbox.push.apple.com';
+
+    /**
+     * @var Connection
+     */
+    private $connection;
 
     /**
      * @var string
@@ -41,7 +47,8 @@ class Sender
             ? self::APNS_DEV_HOST
             : self::APNS_HOST;
         $this->auth = $auth;
-        $this->curlConfig = $config ? $config : new BaseCurlConfig();
+        $this->curlConfig = $config ?: new BaseCurlConfig();
+        $this->connection = $this->curlConfig->getConnection();
     }
 
     /**
@@ -85,9 +92,10 @@ class Sender
      */
     final public function send(Push $push): Response
     {
-        $ch = curl_init($this->getUrl($push->getDeviceToken()));
+        $curlHandle = $this->connection->getCurl();
 
         $curlOptions = [
+            CURLOPT_URL => $this->getUrl($push->getDeviceToken()),
             CURLOPT_HTTPHEADER => $this->prepareHeaders($push),
             CURLOPT_POSTFIELDS => json_encode($push),
         ];
@@ -97,16 +105,15 @@ class Sender
                 $curlOptions[$opt] = $value;
             }
         }
-        curl_setopt_array($ch, $curlOptions);
+        curl_setopt_array($curlHandle, $curlOptions);
 
-        $responseBody = curl_exec($ch);
+        $responseBody = curl_exec($curlHandle);
         if ($responseBody === false) {
-            $errNo = curl_errno($ch);
-            $errStr = curl_error($ch);
+            $errNo = curl_errno($curlHandle);
+            $errStr = curl_error($curlHandle);
             throw new CurlException($errStr, $errNo);
         }
-        $responseCode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-        curl_close($ch);
+        $responseCode = curl_getinfo($curlHandle, CURLINFO_RESPONSE_CODE);
 
         return Response::fromJson($responseBody, $responseCode, $push);
     }

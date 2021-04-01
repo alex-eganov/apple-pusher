@@ -2,6 +2,7 @@
 
 namespace bIbI4k0\ApplePusher;
 
+use bIbI4k0\ApplePusher\Connection\Connection;
 use bIbI4k0\ApplePusher\Exception\CurlException;
 
 /**
@@ -12,6 +13,11 @@ class BaseCurlConfig
 {
     private const MIN_CURL_VERSION = '7.43.0';
 
+    /**
+     * @var Connection
+     */
+    private $connection;
+
     private $options = [
         CURLOPT_PORT => 443,
         CURLOPT_CUSTOMREQUEST => 'POST',
@@ -21,10 +27,13 @@ class BaseCurlConfig
     ];
 
     /**
+     * @param Connection|null $connection
      * @throws CurlException
      */
-    public function __construct()
+    public function __construct(Connection $connection = null)
     {
+        $this->connection = $connection ?: new Connection();
+
         if (defined('CURL_HTTP_VERSION_2')) {
             $curlHttpVersionConst = CURL_HTTP_VERSION_2;
         } else {
@@ -83,6 +92,14 @@ class BaseCurlConfig
     public function setPort(int $port): self
     {
         return $this->set(CURLOPT_PORT, $port);
+    }
+
+    /**
+     * @return Connection
+     */
+    final public function getConnection(): Connection
+    {
+        return $this->connection;
     }
 
     /**
