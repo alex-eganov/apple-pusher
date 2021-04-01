@@ -6,6 +6,7 @@ use bIbI4k0\ApplePusher\Auth\AuthInterface;
 use bIbI4k0\ApplePusher\Connection\Connection;
 use bIbI4k0\ApplePusher\Exception\CurlException;
 use bIbI4k0\ApplePusher\Exception\ResponseParseException;
+use bIbI4k0\ApplePusher\Response\Response;
 
 /**
  * Class Sender

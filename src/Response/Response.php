@@ -1,8 +1,9 @@
 <?php
 
-namespace bIbI4k0\ApplePusher;
+namespace bIbI4k0\ApplePusher\Response;
 
 use bIbI4k0\ApplePusher\Exception\ResponseParseException;
+use bIbI4k0\ApplePusher\Push;
 use JsonSerializable;
 
 /**
@@ -85,7 +86,7 @@ class Response implements JsonSerializable
      */
     public function isOk(): bool
     {
-        return $this->code === ResponseStatus::STATUS_OK;
+        return $this->code === StatusCodes::OK;
     }
 
     /**
