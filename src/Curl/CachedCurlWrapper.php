@@ -8,6 +8,11 @@ namespace bIbI4k0\ApplePusher\Curl;
  */
 class CachedCurlWrapper extends CurlWrapper
 {
+    private const MAX_REQUESTS = 500;
+
+
+    private $requestCounter = 0;
+
     /**
      * @var int
      */
@@ -42,7 +47,8 @@ class CachedCurlWrapper extends CurlWrapper
      */
     private function isExpired(): bool
     {
-        return $this->lastConnectTimestamp + $this->secondsLifetime >= time();
+        return $this->requestCounter >= self::MAX_REQUESTS
+            || ($this->lastConnectTimestamp + $this->secondsLifetime) >= time();
     }
 
     /**
@@ -53,6 +59,7 @@ class CachedCurlWrapper extends CurlWrapper
         $this->close();
         $this->handle = curl_init();
         $this->lastConnectTimestamp = time();
+        $this->requestCounter = 0;
     }
 
 
@@ -64,6 +71,8 @@ class CachedCurlWrapper extends CurlWrapper
         if ($this->isExpired()) {
             $this->init();
         }
+
+        $this->requestCounter++;
 
         return $this->handle;
     }
