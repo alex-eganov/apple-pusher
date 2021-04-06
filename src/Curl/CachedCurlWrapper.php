@@ -48,7 +48,7 @@ class CachedCurlWrapper extends CurlWrapper
     private function isExpired(): bool
     {
         return $this->requestCounter >= self::MAX_REQUESTS
-            || ($this->lastConnectTimestamp + $this->secondsLifetime) >= time();
+            || ($this->lastConnectTimestamp + $this->secondsLifetime) < time();
     }
 
     /**
