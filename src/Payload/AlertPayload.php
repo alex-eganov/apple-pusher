@@ -9,6 +9,11 @@ namespace bIbI4k0\ApplePusher\Payload;
 class AlertPayload extends AbstractPayload
 {
     /**
+     * @var bool
+     */
+    private $alertAsString = false;
+
+    /**
      * @var string|null
      */
     private $title;
@@ -68,10 +73,26 @@ class AlertPayload extends AbstractPayload
     }
 
     /**
+     * Sets the flag, that a string should be used as the value of "alert" field of the payload.
+     * Will use "title" for value
+     *
+     * @param bool $flag
+     */
+    public function setAlertAsString(bool $flag): void
+    {
+        $this->alertAsString = $flag;
+    }
+
+    /**
      * @return array
      */
     public function getApsData(): array
     {
+        if ($this->alertAsString) {
+            $this->setApsValue('alert', $this->title);
+            return parent::getApsData();
+        }
+
         $alertData = [
             'title' => $this->getTitle()
         ];
