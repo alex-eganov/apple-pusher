@@ -3,6 +3,7 @@
 namespace bIbI4k0\ApplePusher\Curl;
 
 use bIbI4k0\ApplePusher\Exception\CurlException;
+use CurlHandle;
 
 /**
  * Class CurlWrapper
@@ -11,11 +12,11 @@ use bIbI4k0\ApplePusher\Exception\CurlException;
 class CurlWrapper implements CurlWrapperInterface
 {
     /**
-     * @var \CurlHandle|false|resource
+     * @var CurlHandle|false|resource
      */
     protected $handle;
 
-    private function __destruct()
+    public function __destruct()
     {
         $this->close();
     }
@@ -29,7 +30,7 @@ class CurlWrapper implements CurlWrapperInterface
 
     /**
      * Returns curl handle
-     * @return \CurlHandle|false|resource
+     * @return CurlHandle|false|resource
      */
     protected function getCurl()
     {
