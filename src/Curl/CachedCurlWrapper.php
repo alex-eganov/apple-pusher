@@ -3,14 +3,21 @@
 namespace bIbI4k0\ApplePusher\Curl;
 
 /**
+ * Class-wrapper for permanent curl-connection to apns for multiple push sends
+ *
  * Class CachedCurlWrapper
  * @package bIbI4k0\ApplePusher\Curl
  */
 class CachedCurlWrapper extends CurlWrapper
 {
+    /**
+     * Max requests before reconnect to apns
+     */
     private const MAX_REQUESTS = 500;
 
-
+    /**
+     * @var int
+     */
     private $requestCounter = 0;
 
     /**
@@ -32,7 +39,7 @@ class CachedCurlWrapper extends CurlWrapper
     }
 
     /**
-     * @param int $minutesLifetime
+     * @param int $minutesLifetime connection lifetime in minutes
      * @return static
      */
     public static function createWithMinutes(int $minutesLifetime): self
@@ -61,7 +68,6 @@ class CachedCurlWrapper extends CurlWrapper
         $this->lastConnectTimestamp = time();
         $this->requestCounter = 0;
     }
-
 
     /**
      * @inheritDoc
