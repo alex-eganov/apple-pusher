@@ -55,4 +55,18 @@ class AlertTest extends TestCase
         self::assertArrayHasKey('subtitle', $alertData);
         self::assertArrayHasKey('body', $alertData);
     }
+
+    public function testAlertAsString(): void
+    {
+        $title = 'test title';
+        $subTitle = 'test subtitle';
+        $body = 'test body';
+        $alert = new AlertPayload($title, $subTitle, $body);
+
+        $alert->setAlertAsString(true);
+
+        $alertData = $alert->jsonSerialize()['aps']['alert'];
+
+        self::assertEquals('test title', $alertData);
+    }
 }
