@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use bIbI4k0\ApplePusher\Payload\AlertPayload;
 use bIbI4k0\ApplePusher\Payload\BackgroundPayload;
+use bIbI4k0\ApplePusher\Payload\PayloadInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,7 +37,7 @@ class PushTest extends TestCase
 
         $expected = [
             'topic' => 'topic',
-            'type' => AlertPayload::TYPE_ALERT,
+            'type' => PayloadInterface::TYPE_ALERT,
             'priority' => 10,
             'expiration' => 100,
         ];
@@ -54,11 +54,11 @@ class PushTest extends TestCase
         $push = $this->makePush($this->makeAlertPayload());
 
         $options = $push->getOptions();
-        self::assertEquals(AlertPayload::TYPE_ALERT, $options['type']);
+        self::assertEquals(PayloadInterface::TYPE_ALERT, $options['type']);
 
         $push->setPayload(new BackgroundPayload());
         $options = $push->getOptions();
-        self::assertEquals(AlertPayload::TYPE_BACKGROUND, $options['type']);
+        self::assertEquals(PayloadInterface::TYPE_BACKGROUND, $options['type']);
     }
 
     public function testCloneWithDevice(): void
