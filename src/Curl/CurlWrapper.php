@@ -3,7 +3,6 @@
 namespace bIbI4k0\ApplePusher\Curl;
 
 use bIbI4k0\ApplePusher\Exception\CurlException;
-use CurlHandle;
 
 /**
  * Class CurlWrapper
@@ -12,7 +11,7 @@ use CurlHandle;
 class CurlWrapper implements CurlWrapperInterface
 {
     /**
-     * @var CurlHandle|false|resource
+     * @var false|resource
      */
     protected $handle;
 
@@ -30,7 +29,7 @@ class CurlWrapper implements CurlWrapperInterface
 
     /**
      * Returns curl handle
-     * @return CurlHandle|false|resource
+     * @return false|resource
      */
     protected function getCurl()
     {
