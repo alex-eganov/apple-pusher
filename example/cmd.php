@@ -15,12 +15,12 @@ $loader = require_once __DIR__ . '/../vendor/autoload.php';
 $loader->setPsr4('bIbI4k0\\', __DIR__ . '/src/');
 
 $helpText = <<< HELP
-    --type      auth type: token, cert
-    --cert      full path to the cert file
+    --type      Auth type: token, cert
+    --cert      Full path to the cert file. For both auth types: token and cert
     --team-key  Team key. Only token auth
     --apns-key  Apns key. Only token auth
     --passwd    Passphrase for the cert file. Only cert auth
-    --bundle    Bundle id for set in the topic. Required to set.
+    --bundle    Bundle Id for set in the topic. Required to set.
     --device    Device token. Required to set.
     --title     Alert title of the notification. Required to set.
     --text      Alert text of the notification
