@@ -13,7 +13,7 @@ jobs:
 #      run: composer validate --strict
 
     - name: Install dependencies
-      run: /usr/bin/php7.4 /usr/local/bin/composer install --prefer-dist --no-progress
+      run: /usr/bin/php7.4 /usr/bin/composer install --prefer-dist --no-progress
 
     - name: Run test suite
-      run: /usr/bin/php7.4 /usr/local/bin/composer run-script unit
+      run: /usr/bin/php7.4 /usr/bin/composer run-script unit
