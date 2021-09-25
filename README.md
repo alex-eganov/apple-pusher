@@ -27,9 +27,9 @@ $sender = new Sender(
     new BaseConfig($isSandbox)
 );
 
-$payload = new AlertPayload($alertTitle, null, $alertText);
-$push = new Push($device, $payload);
-$push->setTopic($bundleId);
+$payload = new AlertPayload('Hello dude');
+$push = new Push('device token', $payload);
+$push->setTopic('bundle id of your app');
 
 $resp = $sender->send($push);
 if ($resp->isOk()) {
