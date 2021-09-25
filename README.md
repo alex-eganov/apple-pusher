@@ -3,13 +3,41 @@
 A simple library for creating and sending push-notifications to apple devices via APNs.
 Supports sending over http/2 protocol preferred by Apple and both of authentication types: token-based and via ssl-cert.
 
-### Can I use it for production?
-Not yet, dude. Now I am actively testing library functional in my projects, supplementing it with tests. 
-When I feel like the library is ready, version 1.0.0 will be released. 
-
 ### Installation
 ```composer require bibi4k0/apple-pusher```
+
+### Usage
+```php
+use bIbI4k0\ApplePusher\BaseConfig;
+use bIbI4k0\ApplePusher\Curl\CurlWrapper;
+use bIbI4k0\ApplePusher\Sender;
+use bIbI4k0\ApplePusher\Payload;
+
+$auth = new TokenAuth(
+    'your apns id', 
+    'your team id', 
+    'content from .p8 cert file or file path with prefix file:///'
+);
+
+$isSandbox = false;
+
+$sender = new Sender(
+    $auth,
+    new CachedCurlWrapper(),
+    new BaseConfig($isSandbox)
+);
+
+$payload = new AlertPayload($alertTitle, null, $alertText);
+$push = new Push($device, $payload);
+$push->setTopic($bundleId);
+
+$resp = $sender->send($push);
+if ($resp->isOk()) {
+    echo 'push was sent successfully';
+}
+```
 
 ### Documentation
 
 See ```example/cmd.php``` for usecases.
+
