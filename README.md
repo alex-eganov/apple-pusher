@@ -37,7 +37,8 @@ if ($resp->isOk()) {
 }
 ```
 
+See also ```example/cmd.php```.
+
 ### Documentation
-
-See ```example/cmd.php``` for usecases.
-
+It's simple library and hardly needs any separate documentation.
+Nevertheless, I tried to describe the code documentation well enough. See the source code for the more knowledges.

@@ -9,6 +9,9 @@
             "email": "alex.eganov@gmail.com"
         }
     ],
+    "scripts": {
+        "unit": "vendor/bin/phpunit tests"
+    },
     "require": {
         "php": ">=7.2",
         "ext-json": "*",
