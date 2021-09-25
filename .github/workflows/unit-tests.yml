@@ -4,16 +4,16 @@ on: [push]
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+#    - name: Validate composer.json and composer.lock
+#      run: composer validate --strict
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: /usr/bin/php7.4 /usr/local/bin/composer install --prefer-dist --no-progress
 
     - name: Run test suite
-      run: composer run-script unit
+      run: /usr/bin/php7.4 /usr/local/bin/composer run-script unit
