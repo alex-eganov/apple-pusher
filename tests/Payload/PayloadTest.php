@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Types;
+namespace Tests\Payload;
 
 use PHPUnit\Framework\TestCase;
 

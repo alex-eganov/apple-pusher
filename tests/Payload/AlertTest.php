@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Types;
+namespace Tests\Payload;
 
 use bIbI4k0\ApplePusher\Payload\AlertPayload;
 use PHPUnit\Framework\TestCase;
