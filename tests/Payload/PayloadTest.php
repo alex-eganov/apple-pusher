@@ -1,7 +1,8 @@
 <?php
 
-namespace Tests\Payload;
+namespace bIbI4k0\ApplePusher\Tests\Payload;
 
+use bIbI4k0\ApplePusher\Tests\Stubs\StubPayload;
 use PHPUnit\Framework\TestCase;
 
 /**

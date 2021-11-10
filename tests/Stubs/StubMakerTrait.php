@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace bIbI4k0\ApplePusher\Tests\Stubs;
 
 use bIbI4k0\ApplePusher\Payload\AlertPayload;
 use bIbI4k0\ApplePusher\Payload\PayloadInterface;

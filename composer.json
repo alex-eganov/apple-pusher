@@ -29,7 +29,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "bIbI4k0\\ApplePusher\\Tests\\": "tests/"
         }
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests;
+namespace bIbI4k0\ApplePusher\Tests;
 
+use PHPUnit\Framework\TestCase;
 use bIbI4k0\ApplePusher\Payload\BackgroundPayload;
 use bIbI4k0\ApplePusher\Payload\PayloadInterface;
-use PHPUnit\Framework\TestCase;
+use bIbI4k0\ApplePusher\Tests\Stubs\StubMakerTrait;
 
 /**
  * Class PushTest
