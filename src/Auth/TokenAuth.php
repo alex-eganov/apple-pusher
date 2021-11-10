@@ -2,8 +2,9 @@
 
 namespace bIbI4k0\ApplePusher\Auth;
 
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Signer\Ecdsa\Sha256;
+use DateTimeImmutable;
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Token;
 
@@ -20,33 +21,46 @@ class TokenAuth implements AuthInterface
     /**
      * @var Token
      */
-    private $token;
+    private Token $token;
 
     /**
      * @var string
      */
-    private $apnsId;
+    private string $apnsId;
 
     /**
      * @var string
      */
-    private $teamId;
+    private string $teamId;
 
     /**
-     * @var Key
+     * @var Configuration
      */
-    private $key;
+    private Configuration $jwtConfig;
 
     /**
      * @param string $apnsId APNS key
      * @param string $teamId Apple developers team ID
-     * @param string $keyFile .p8 key file content or file URI to it
+     * @param string $keyFileOrContent .p8 key file content or file URI to it starts with prefix "file://"
      */
-    public function __construct(string $apnsId, string $teamId, string $keyFile)
+    public function __construct(string $apnsId, string $teamId, string $keyFileOrContent)
     {
         $this->apnsId = $apnsId;
         $this->teamId = $teamId;
-        $this->key = new Key($keyFile);
+        $this->jwtConfig = Configuration::forSymmetricSigner(new Sha256(), $this->makeKey($keyFileOrContent));
+    }
+
+    /**
+     * @param string $keyFileOrContent
+     * @return Key
+     */
+    protected function makeKey(string $keyFileOrContent): Key
+    {
+        if (strpos($keyFileOrContent, 'file://') === 0) {
+            return Key\InMemory::file(substr($keyFileOrContent, 7));
+        }
+
+        return Key\InMemory::plainText($keyFileOrContent);
     }
 
     /**
@@ -56,18 +70,17 @@ class TokenAuth implements AuthInterface
      */
     private function getTokenAsString(): string
     {
-        if ($this->token === null || $this->token->isExpired()) {
-            $time = time();
-
-            $this->token = (new Builder())
+        $now = new DateTimeImmutable();
+        if ($this->token === null || $this->token->isExpired($now)) {
+            $this->token = $this->jwtConfig->builder()
                 ->issuedBy(strtoupper($this->teamId))
-                ->issuedAt($time)
-                ->expiresAt($time + self::TOKEN_LIFETIME_SECONDS)
+                ->issuedAt($now)
+                ->expiresAt($now->modify(sprintf('%s second', self::TOKEN_LIFETIME_SECONDS)))
                 ->withHeader('kid', strtoupper($this->apnsId))
-                ->getToken(new Sha256(), $this->key);
+                ->getToken($this->jwtConfig->signer(), $this->jwtConfig->signingKey());
         }
 
-        return (string)$this->token;
+        return $this->token->toString();
     }
 
 
