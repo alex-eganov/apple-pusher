@@ -1,12 +1,13 @@
 <?php
 
-namespace Tests;
+namespace Tests\Response;
 
 use bIbI4k0\ApplePusher\Exception\ResponseParseException;
 use bIbI4k0\ApplePusher\Push;
 use bIbI4k0\ApplePusher\Response\Response;
 use bIbI4k0\ApplePusher\Response\StatusCodes;
 use PHPUnit\Framework\TestCase;
+use Tests\StubMakerTrait;
 
 /**
  * Class ResponseTest
