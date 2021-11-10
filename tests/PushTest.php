@@ -24,7 +24,7 @@ class PushTest extends TestCase
      */
     private static function assertUUID(string $expected): void
     {
-        self::assertRegExp(self::UUID_RE, $expected);
+        self::assertMatchesRegularExpression(self::UUID_RE, $expected);
     }
 
     public function testGetOptions(): void
