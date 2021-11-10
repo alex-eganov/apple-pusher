@@ -8,8 +8,8 @@ namespace bIbI4k0\ApplePusher\Curl;
  */
 final class CurlResponse
 {
-    private $code;
-    private $body;
+    private int $code;
+    private string $body;
 
     public function __construct(int $code, string $body)
     {

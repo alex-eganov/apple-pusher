@@ -11,12 +11,12 @@ abstract class AbstractPayload implements PayloadInterface
     /**
      * @var array
      */
-    private $apsData = [];
+    private array $apsData = [];
 
     /**
      * @var array
      */
-    private $customData = [];
+    private array $customData = [];
 
     /**
      * @param string $key

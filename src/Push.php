@@ -15,17 +15,17 @@ class Push implements JsonSerializable
     /**
      * @var string
      */
-    private $deviceToken;
+    private string $deviceToken;
 
     /**
      * @var PayloadInterface
      */
-    private $payload;
+    private PayloadInterface $payload;
 
     /*
      * array
      */
-    private $options = [];
+    private array $options = [];
 
     /**
      * @param string $deviceToken

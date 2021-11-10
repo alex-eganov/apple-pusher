@@ -17,22 +17,22 @@ class Sender
     /**
      * @var CurlWrapperInterface
      */
-    private $curlWrapper;
+    private CurlWrapperInterface $curlWrapper;
 
     /**
      * @var AuthInterface
      */
-    private $auth;
+    private AuthInterface $auth;
 
     /**
      * @var BaseConfig
      */
-    private $config;
+    private BaseConfig $config;
 
     /**
      * @var string
      */
-    private $baseUrl;
+    private string $baseUrl;
 
     /**
      * @param AuthInterface $auth apns auth implementation

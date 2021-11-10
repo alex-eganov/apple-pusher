@@ -15,17 +15,17 @@ class Response implements JsonSerializable
     /**
      * @var int
      */
-    private $code;
+    private int $code;
 
     /**
      * @var Push
      */
-    private $push;
+    private Push $push;
 
     /**
      * @var string|null
      */
-    private $reason;
+    private ?string $reason;
 
     /**
      * @param int $code status code from apns-response

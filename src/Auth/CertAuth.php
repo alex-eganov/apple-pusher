@@ -13,15 +13,15 @@ class CertAuth implements AuthInterface
     /**
      * @var string
      */
-    private $certFile;
+    private string $certFile;
 
     /**
      * @var string
      */
-    private $certPassword;
+    private string $certPassword;
 
     /**
-     * @param string $certFile
+     * @param string $certFile path to cert file
      * @param string $certPassword
      */
     public function __construct(string $certFile, string $certPassword)

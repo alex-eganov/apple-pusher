@@ -18,17 +18,17 @@ class CachedCurlWrapper extends CurlWrapper
     /**
      * @var int
      */
-    private $requestCounter = 0;
+    private int $requestCounter = 0;
 
     /**
      * @var int
      */
-    private $lastConnectTimestamp = 0;
+    private int $lastConnectTimestamp = 0;
 
     /**
      * @var int
      */
-    private $secondsLifetime;
+    private int $secondsLifetime;
 
     /**
      * @param int $secondsLifetime connection lifetime in seconds

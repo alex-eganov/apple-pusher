@@ -11,22 +11,22 @@ class AlertPayload extends AbstractPayload
     /**
      * @var bool
      */
-    private $alertAsString = false;
+    private bool $alertAsString = false;
 
     /**
      * @var string|null
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @var string|null
      */
-    private $subTitle;
+    private ?string $subTitle;
 
     /**
      * @var string|null
      */
-    private $body;
+    private ?string $body;
 
     /**
      * @param string|null $title

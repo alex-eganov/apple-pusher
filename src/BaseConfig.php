@@ -18,12 +18,12 @@ class BaseConfig
     /**
      * @var string
      */
-    private $baseUrl;
+    private string $baseUrl;
 
     /**
      * @var array
      */
-    private $curlOptions = [
+    private array $curlOptions = [
         CURLOPT_PORT => 443,
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_RETURNTRANSFER => true,
