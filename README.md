@@ -16,7 +16,7 @@ use bIbI4k0\ApplePusher\Payload;
 $auth = new TokenAuth(
     'your apns id', 
     'your team id', 
-    'content from .p8 cert file or file path with prefix file:///'
+    'content from .p8 cert file or file path with prefix file://'
 );
 
 $isSandbox = false;
@@ -42,3 +42,8 @@ See also ```example/cmd.php```.
 ### Documentation
 It's simple library and hardly needs any separate documentation.
 Nevertheless, I tried to describe the code documentation well enough. See the source code for the more knowledges.
+
+### Tests
+Some unit tests are included. Still not enough, but I'm working on it :)
+Can run it by command:
+```composer run unit```
