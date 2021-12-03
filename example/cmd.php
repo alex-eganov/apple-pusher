@@ -80,7 +80,7 @@ if ($type === 'token') {
         printMessage('Team key or APNS key is not set.');
         exit(1);
     }
-    $cert = 'file:///' . $cert;
+    $cert = 'file://' . $cert;
     $auth = new TokenAuth($apnsId, $teamId, $cert);
 } else { // $type === cert
     $passwd = trim($args['passwd']);
