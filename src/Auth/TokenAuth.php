@@ -19,7 +19,7 @@ class TokenAuth implements AuthInterface
     private const TOKEN_LIFETIME_SECONDS = 60 * 59;
 
     /**
-     * @var Token
+     * @var Token|null
      */
     private ?Token $token = null;
 
