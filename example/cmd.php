@@ -115,7 +115,7 @@ $push->setTopic($bundleId);
 $sender = new Sender(
     $auth,
     new CurlWrapper(),
-    new BaseConfig(true)
+    new BaseConfig($isDebug)
 );
 try {
     $resp = $sender->send($push);
