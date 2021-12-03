@@ -16,7 +16,7 @@ use Lcobucci\JWT\Token;
  */
 class TokenAuth implements AuthInterface
 {
-    private const TOKEN_LIFETIME_SECONDS = 60 * 59;
+    private const TOKEN_LIFETIME_MINUTES = 59;
 
     /**
      * @var Token|null
@@ -75,7 +75,7 @@ class TokenAuth implements AuthInterface
             $this->token = $this->jwtConfig->builder()
                 ->issuedBy(strtoupper($this->teamId))
                 ->issuedAt($now)
-                ->expiresAt($now->modify(sprintf('%s second', self::TOKEN_LIFETIME_SECONDS)))
+                ->expiresAt($now->modify(sprintf('+%s minute', self::TOKEN_LIFETIME_MINUTES)))
                 ->withHeader('kid', strtoupper($this->apnsId))
                 ->getToken($this->jwtConfig->signer(), $this->jwtConfig->signingKey());
         }
