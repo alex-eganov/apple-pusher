@@ -21,7 +21,7 @@ class TokenAuth implements AuthInterface
     /**
      * @var Token
      */
-    private Token $token;
+    private ?Token $token = null;
 
     /**
      * @var string
