@@ -118,6 +118,7 @@ $sender = new Sender(
     new BaseConfig($isDebug)
 );
 try {
+    printMessage(sprintf('Trying send push to %s APNs...', $isDebug ? 'development' : 'production'));
     $resp = $sender->send($push);
     printAsPrettyJson($resp);
 
