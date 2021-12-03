@@ -4,7 +4,7 @@ namespace bIbI4k0\ApplePusher\Auth;
 
 use DateTimeImmutable;
 use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Ecdsa\Sha256;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Token;
 
@@ -47,7 +47,7 @@ class TokenAuth implements AuthInterface
     {
         $this->apnsId = $apnsId;
         $this->teamId = $teamId;
-        $this->jwtConfig = Configuration::forSymmetricSigner(new Sha256(), $this->makeKey($keyFileOrContent));
+        $this->jwtConfig = Configuration::forSymmetricSigner(Sha256::create(), $this->makeKey($keyFileOrContent));
     }
 
     /**
