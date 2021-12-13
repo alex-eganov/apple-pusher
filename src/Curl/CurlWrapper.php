@@ -3,6 +3,7 @@
 namespace bIbI4k0\ApplePusher\Curl;
 
 use bIbI4k0\ApplePusher\Exception\CurlException;
+use CurlHandle;
 
 /**
  * Class CurlWrapper
@@ -10,10 +11,7 @@ use bIbI4k0\ApplePusher\Exception\CurlException;
  */
 class CurlWrapper implements CurlWrapperInterface
 {
-    /**
-     * @var false|resource
-     */
-    protected $handle;
+    protected CurlHandle|false $handle;
 
     public function __destruct()
     {
@@ -22,19 +20,20 @@ class CurlWrapper implements CurlWrapperInterface
 
     protected function close(): void
     {
-        if (is_resource($this->handle)) {
+        if ($this->handle instanceof CurlHandle) {
             curl_close($this->handle);
         }
     }
 
     /**
      * Returns curl handle
-     * @return false|resource
+     * @return CurlHandle
+     * @throws CurlException
      */
-    protected function getCurl()
+    protected function getCurl(): CurlHandle
     {
         $this->close();
-        return $this->handle = curl_init();
+        return $this->handle = curl_init() ?: throw new CurlException('Cannot create cURL handle.');
     }
 
     /**

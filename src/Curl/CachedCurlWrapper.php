@@ -2,6 +2,8 @@
 
 namespace bIbI4k0\ApplePusher\Curl;
 
+use CurlHandle;
+
 /**
  * Class-wrapper for permanent curl-connection to apns for multiple push sends
  *
@@ -72,7 +74,7 @@ class CachedCurlWrapper extends CurlWrapper
     /**
      * @inheritDoc
      */
-    protected function getCurl()
+    protected function getCurl(): CurlHandle
     {
         if ($this->isExpired()) {
             $this->init();
