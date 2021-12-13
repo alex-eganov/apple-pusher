@@ -11,7 +11,7 @@ use CurlHandle;
  */
 class CurlWrapper implements CurlWrapperInterface
 {
-    protected CurlHandle|false $handle;
+    protected ?CurlHandle $handle = null;
 
     public function __destruct()
     {
@@ -20,8 +20,8 @@ class CurlWrapper implements CurlWrapperInterface
 
     protected function close(): void
     {
-        if ($this->handle instanceof CurlHandle) {
-            curl_close($this->handle);
+        if ($this->handle !== null) {
+            unset($this->handle);
         }
     }
 
