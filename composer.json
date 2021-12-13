@@ -13,7 +13,7 @@
         "unit": "vendor/bin/phpunit tests"
     },
     "require": {
-        "php": "^7.4 | ^8.0 | ^8.1",
+        "php": "^8.0 | ^8.1",
         "ext-json": "*",
         "ext-curl": "*",
         "ramsey/uuid": "^3.9.3",
