@@ -135,7 +135,7 @@ class Push implements JsonSerializable
     public function setPayload(PayloadInterface $payload): self
     {
         $this->payload = $payload;
-        $this->setOption('type', $payload->getType());
+        $this->setOption('push-type', $payload->getType());
         return $this;
     }
 
