@@ -2,7 +2,7 @@
     "name": "bibi4k0/apple-pusher",
     "type": "library",
     "license": "MIT",
-    "description": "",
+    "description": "A simple library for creating and sending push-notifications to apple devices via APNs using HTTP/2.",
     "authors": [
         {
             "name": "Alex Eganov",
