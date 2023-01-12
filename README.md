@@ -4,7 +4,16 @@ A simple library for creating and sending push-notifications to apple devices vi
 Supports sending over http/2 protocol preferred by Apple and both of authentication types: token-based and via ssl-cert.
 
 ### Installation
-```composer require bibi4k0/apple-pusher```
+```
+# for PHP 8.* only
+composer require bibi4k0/apple-pusher 
+
+# for PHP 7.4+ or PHP 8.*
+composer require bibi4k0/apple-pusher:^1.1
+
+# for PHP 7.2+
+composer require bibi4k0/apple-pusher:^1.0
+```
 
 ### Usage
 ```php
