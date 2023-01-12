@@ -37,7 +37,7 @@ class PushTest extends TestCase
 
         $expected = [
             'topic' => 'topic',
-            'type' => PayloadInterface::TYPE_ALERT,
+            'push-type' => PayloadInterface::TYPE_ALERT,
             'priority' => 10,
             'expiration' => 100,
         ];
@@ -54,11 +54,11 @@ class PushTest extends TestCase
         $push = $this->makePush($this->makeAlertPayload());
 
         $options = $push->getOptions();
-        self::assertEquals(PayloadInterface::TYPE_ALERT, $options['type']);
+        self::assertEquals(PayloadInterface::TYPE_ALERT, $options['push-type']);
 
         $push->setPayload(new BackgroundPayload());
         $options = $push->getOptions();
-        self::assertEquals(PayloadInterface::TYPE_BACKGROUND, $options['type']);
+        self::assertEquals(PayloadInterface::TYPE_BACKGROUND, $options['push-type']);
     }
 
     public function testCloneWithDevice(): void
